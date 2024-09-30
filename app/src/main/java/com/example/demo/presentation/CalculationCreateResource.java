@@ -1,20 +1,38 @@
 package com.example.demo.presentation;
 
 import com.example.demo.application.Calculator;
+import com.example.demo.presentation.dto.CalculationRequestDto;
+import com.example.demo.presentation.dto.CalculationResponseDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 
 public class CalculationCreateResource extends ResourceMethodHandler {
     public final static String KEY = "POST /calculations";
 
     private final Calculator calculator = new Calculator();
 
-    public String handle(String content) {
-        String[] values = content.split(" ");
-        int number1 = Integer.parseInt(values[0]);
-        int number2 = Integer.parseInt(values[2]);
-        String operator = values[1];
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-        int result = calculator.calculate(number1, number2, operator);
+    public String handle(String content) throws IOException {
+        CalculationRequestDto calculationRequestDto = objectMapper.readValue(
+                content,
+                CalculationRequestDto.class
+        );
 
-        return result + "\n";
+        int result = calculator.calculate(
+                calculationRequestDto.getNumber1(),
+                calculationRequestDto.getNumber2(),
+                calculationRequestDto.getOperator()
+        );
+
+        return objectMapper.writeValueAsString(
+                new CalculationResponseDto(
+                        calculationRequestDto.getNumber1(),
+                        calculationRequestDto.getNumber2(),
+                        calculationRequestDto.getOperator(),
+                        result
+                )
+        );
     }
 }
