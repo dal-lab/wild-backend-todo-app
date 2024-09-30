@@ -14,8 +14,8 @@ public class RequestHandler implements HttpHandler {
     private final Map<String, ResourceMethodHandler> handlers = new HashMap<>();
 
     public RequestHandler() {
-        handlers.put(HomeGetResource.PATH, new HomeGetResource());
-        handlers.put(CalculationCreateResource.PATH, new CalculationCreateResource());
+        handlers.put(HomeGetResource.KEY, new HomeGetResource());
+        handlers.put(CalculationCreateResource.KEY, new CalculationCreateResource());
     }
 
     @Override

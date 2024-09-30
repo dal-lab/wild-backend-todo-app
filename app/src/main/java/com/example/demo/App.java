@@ -21,6 +21,6 @@ public class App {
         httpServer.createContext("/", requestHandler);
         httpServer.start();
 
-        System.out.println("Listening on http://localhost:8080/");
+        System.out.println("Listening on http://localhost:8080");
     }
 }
