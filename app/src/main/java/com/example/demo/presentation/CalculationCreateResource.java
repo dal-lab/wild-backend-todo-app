@@ -1,6 +1,7 @@
 package com.example.demo.presentation;
 
 import com.example.demo.application.Calculator;
+import com.example.demo.infrastructure.Calculation;
 import com.example.demo.presentation.dto.CalculationRequestDto;
 import com.example.demo.presentation.dto.CalculationResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +21,7 @@ public class CalculationCreateResource extends ResourceMethodHandler {
                 CalculationRequestDto.class
         );
 
-        int result = calculator.calculate(
+        Calculation calculate = calculator.calculate(
                 calculationRequestDto.getNumber1(),
                 calculationRequestDto.getNumber2(),
                 calculationRequestDto.getOperator()
@@ -28,10 +29,10 @@ public class CalculationCreateResource extends ResourceMethodHandler {
 
         return objectMapper.writeValueAsString(
                 new CalculationResponseDto(
-                        calculationRequestDto.getNumber1(),
-                        calculationRequestDto.getNumber2(),
-                        calculationRequestDto.getOperator(),
-                        result
+                        calculate.getNumber1(),
+                        calculate.getNumber2(),
+                        calculate.getOperator(),
+                        calculate.getResult()
                 )
         );
     }
