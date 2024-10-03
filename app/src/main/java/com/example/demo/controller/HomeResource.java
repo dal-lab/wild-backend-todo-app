@@ -1,13 +1,10 @@
 package com.example.demo.controller;
 
-import com.example.demo.RequestMethodHandler;
-
-public class HomeResource implements RequestMethodHandler {
+public class HomeResource {
 
     public final static String KEY = "GET /";
 
-    @Override
-    public String handler(String content) {
+    public String handler() {
         return "Hello World";
     }
 }
