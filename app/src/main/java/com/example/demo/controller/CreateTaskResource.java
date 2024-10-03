@@ -4,6 +4,7 @@ import com.example.demo.RequestMethodHandler;
 import com.example.demo.application.TaskCreator;
 import com.example.demo.controller.dto.CreateTaskRequestDto;
 import com.example.demo.controller.dto.CreateTaskResponseDto;
+import com.example.demo.infrastructure.Task;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
@@ -21,10 +22,10 @@ public class CreateTaskResource implements RequestMethodHandler {
                 CreateTaskRequestDto.class
         );
 
-        String tasks = taskCreator.save(createTaskRequestDto.content());
+        Task tasks = taskCreator.createTask(createTaskRequestDto.content());
 
         return objectMapper.writeValueAsString(
-                new CreateTaskResponseDto(tasks).content()
+                new CreateTaskResponseDto(tasks.getContents())
         );
     }
 }
