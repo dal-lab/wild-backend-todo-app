@@ -7,7 +7,7 @@ public class TaskRemover {
 
     private final TaskRepository taskRepository = TaskRepositoryImp.getInstance();
 
-    public void removeTask(Long id) {
-        taskRepository.remove(id);
+    public boolean removeTask(Long id) {
+        return taskRepository.remove(id);
     }
 }

@@ -43,7 +43,7 @@ public class TaskRepositoryImp implements TaskRepository {
     }
 
     @Override
-    public void remove(Long id) {
-        tasks.removeIf(task -> task.getId() == id);
+    public boolean remove(Long id) {
+        return tasks.removeIf(task -> task.getId() == id);
     }
 }

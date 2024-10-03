@@ -75,7 +75,6 @@ public class RequestHandler implements HttpHandler {
         return null;
     }
 
-
     private Long getPathId(String requestUri) {
         Long taskId = Long.parseLong(requestUri.substring("/tasks/".length()));
         return taskId;

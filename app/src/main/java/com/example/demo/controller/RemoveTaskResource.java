@@ -7,8 +7,6 @@ public class RemoveTaskResource {
     private final TaskRemover taskRemover = new TaskRemover();
 
     public String handler(Long id) {
-        taskRemover.removeTask(id);
-
-        return "success";
+        return taskRemover.removeTask(id) ? "success" : "fail";
     }
 }

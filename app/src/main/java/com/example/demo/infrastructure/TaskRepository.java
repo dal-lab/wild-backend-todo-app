@@ -11,5 +11,5 @@ public interface TaskRepository {
 
     Optional<Task> findById(Long id);
 
-    void remove(Long id);
+    boolean remove(Long id);
 }
