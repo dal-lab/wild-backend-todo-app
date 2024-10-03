@@ -8,7 +8,9 @@ import java.util.concurrent.atomic.AtomicLong;
 public class TaskRepositoryImp implements TaskRepository {
 
     List<Task> tasks = new ArrayList<>();
+
     private static TaskRepositoryImp instance = null;
+
     private final AtomicLong atomicLong = new AtomicLong(1);
 
     public static TaskRepositoryImp getInstance() {
@@ -16,6 +18,10 @@ public class TaskRepositoryImp implements TaskRepository {
             instance = new TaskRepositoryImp();
         }
         return instance;
+    }
+
+    private long nextId() {
+        return atomicLong.getAndIncrement();
     }
 
     @Override
@@ -39,9 +45,5 @@ public class TaskRepositoryImp implements TaskRepository {
     @Override
     public void remove(Long id) {
         tasks.removeIf(task -> task.getId() == id);
-    }
-
-    private long nextId() {
-        return atomicLong.getAndIncrement();
     }
 }
