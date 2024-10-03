@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class RequestHandler implements HttpHandler {
 
-    Map<String, RequestMethodHandler> handlers = new HashMap<>();
+    private final Map<String, RequestMethodHandler> handlers = new HashMap<>();
 
     public RequestHandler() {
         handlers.put(HomeResource.KEY, new HomeResource());
