@@ -48,8 +48,7 @@ public class TodoRepository {
                 }
                 todoArrayList.set(i, new Todo(
                         id,
-                        title,
-                        isCompleted
+                        title
                 ));
                 found = true;
                 break;

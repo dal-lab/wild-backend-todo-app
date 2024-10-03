@@ -3,12 +3,12 @@ package com.example.demo.infrastructure;
 public class Todo {
     private final int id;
     private final String title;
-    private final boolean completed;
+    private final boolean isCompleted;
 
-    public Todo(int id, String title, boolean completed) {
+    public Todo(int id, String title) {
         this.id = id;
         this.title = title;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     public int getId() {
@@ -20,6 +20,6 @@ public class Todo {
     }
 
     public boolean isCompleted() {
-        return completed;
+        return isCompleted;
     }
 }
