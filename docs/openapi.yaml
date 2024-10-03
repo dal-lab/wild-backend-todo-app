@@ -141,5 +141,5 @@ components:
             properties:
                 id:
                     type: integer
-                contents:
+                content:
                     type: string
