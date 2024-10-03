@@ -1,19 +1,14 @@
 package com.example.demo.infrastructure;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskRepositoryImp implements TaskRepository {
 
-    private final AtomicLong atomicLong = new AtomicLong(1);
+    List<Task> tasks = new ArrayList<>();
 
     @Override
-    public Task save(final String content) {
-        long id = Task.assignId(nextId());
-
-        return Task.createTask(id, content);
-    }
-
-    private long nextId() {
-        return atomicLong.getAndIncrement();
+    public void save(final Task task) {
+        tasks.add(task);
     }
 }
