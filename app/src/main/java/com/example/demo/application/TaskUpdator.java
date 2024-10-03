@@ -9,13 +9,15 @@ public class TaskUpdator {
 
     private final TaskRepository taskRepository = TaskRepositoryImp.getInstance();
 
-    public String updateTask(long id, String content) {
+    public Task updateTask(long id, String content) {
         Optional<Task> optionalTask = taskRepository.findById(id);
-        if (optionalTask.isPresent()) {
-            Task task = optionalTask.get();
-            task.setContent(content);
+        if (optionalTask.isEmpty()) {
+            throw new Error("");
         }
 
-        return content;
+        Task task = optionalTask.get();
+        task.setContent(content);
+
+        return task;
     }
 }

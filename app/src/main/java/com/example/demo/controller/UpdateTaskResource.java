@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.application.TaskUpdator;
 import com.example.demo.controller.dto.UpdateTaskRequestDto;
 import com.example.demo.controller.dto.UpdateTaskResponseDto;
+import com.example.demo.infrastructure.Task;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
@@ -18,10 +19,10 @@ public class UpdateTaskResource {
                 UpdateTaskRequestDto.class
         );
 
-        String updatedTask = taskUpdator.updateTask(id, updateTaskRequestDto.content());
+        Task task = taskUpdator.updateTask(id, updateTaskRequestDto.content());
 
         return objectMapper.writeValueAsString(
-                new UpdateTaskResponseDto(updatedTask)
+                new UpdateTaskResponseDto(task.getContents())
         );
     }
 }
