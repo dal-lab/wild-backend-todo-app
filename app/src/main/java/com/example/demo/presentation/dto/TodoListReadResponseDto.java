@@ -1,5 +1,6 @@
 package com.example.demo.presentation.dto;
 
+import java.util.Collections;
 import java.util.List;
 
 public class TodoListReadResponseDto {
@@ -10,7 +11,7 @@ public class TodoListReadResponseDto {
     }
 
     public List<TodoCreateResponseDto> getTodoList() {
-        return todoList;
+        return Collections.unmodifiableList(todoList);
     }
 
 }
