@@ -122,8 +122,18 @@ paths:
                     schema:
                         type: string
             responses:
-                204:
+                200:
                     description: Task 삭제 결과
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        description: 삭제 성공
+                                        example: "success"
+
 components:
     schemas:
         Task:
