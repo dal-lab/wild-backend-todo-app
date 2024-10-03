@@ -46,7 +46,8 @@ public class RequestHandler implements HttpHandler {
         return requestMethod + " " + path;
     }
 
-    public String getResponseContent(String requestKey, String requestContent) {
+    public String getResponseContent(String requestKey, String requestContent)
+            throws IOException {
         RequestMethodHandler requestMethodHandler = handlers.get(requestKey);
         String responseContent = requestMethodHandler.handler(requestContent);
         return responseContent;
