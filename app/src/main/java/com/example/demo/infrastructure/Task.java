@@ -17,7 +17,7 @@ public class Task {
     protected Task() {
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

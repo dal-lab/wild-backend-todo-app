@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class TaskCreator {
 
-    private final TaskRepository taskRepository = new TaskRepositoryImp();
+    private final TaskRepository taskRepository = TaskRepositoryImp.getInstance();
     private final AtomicLong atomicLong = new AtomicLong(1);
 
     public Task createTask(String content) {
