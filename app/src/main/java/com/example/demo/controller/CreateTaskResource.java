@@ -21,7 +21,7 @@ public class CreateTaskResource {
         Task tasks = taskCreator.createTask(createTaskRequestDto.content());
 
         return objectMapper.writeValueAsString(
-                new CreateTaskResponseDto(tasks.getContents())
+                new CreateTaskResponseDto(tasks.getContent())
         );
     }
 }

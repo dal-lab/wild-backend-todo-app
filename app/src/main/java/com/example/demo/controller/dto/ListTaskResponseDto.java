@@ -13,7 +13,7 @@ public record ListTaskResponseDto(
                 tasks.stream()
                         .map(task -> new ListTaskItemResponseDto(
                                 task.getId(),
-                                task.getContents()
+                                task.getContent()
                         )).collect(Collectors.toList())
         );
     }

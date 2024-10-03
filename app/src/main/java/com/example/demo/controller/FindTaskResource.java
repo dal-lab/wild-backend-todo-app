@@ -17,7 +17,7 @@ public class FindTaskResource {
         return objectMapper.writeValueAsString(
                 new FindTaskResponseDto(
                         task.getId(),
-                        task.getContents()
+                        task.getContent()
                 )
         );
     }

@@ -22,7 +22,7 @@ public class UpdateTaskResource {
         Task task = taskUpdator.updateTask(id, updateTaskRequestDto.content());
 
         return objectMapper.writeValueAsString(
-                new UpdateTaskResponseDto(task.getContents())
+                new UpdateTaskResponseDto(task.getContent())
         );
     }
 }

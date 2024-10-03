@@ -3,30 +3,30 @@ package com.example.demo.infrastructure;
 public class Task {
 
     private long id;
-    private String contents;
+    private String content;
 
-    public Task(final long id, final String contents) {
+    public Task(final long id, final String content) {
         this.id = id;
-        this.contents = contents;
+        this.content = content;
     }
 
     protected Task() {
     }
 
-    public Task(String contents) {
-        this.contents = contents;
+    public Task(String content) {
+        this.content = content;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getContents() {
-        return contents;
+    public String getContent() {
+        return content;
     }
 
     public void setContent(final String content) {
-        this.contents = content;
+        this.content = content;
     }
 
     public static Task createTask(final String content) {
@@ -41,7 +41,7 @@ public class Task {
     public String toString() {
         return "{" +
                 "id=" + id +
-                ", contents='" + contents + '\'' +
+                ", contents='" + content + '\'' +
                 '}';
     }
 }
