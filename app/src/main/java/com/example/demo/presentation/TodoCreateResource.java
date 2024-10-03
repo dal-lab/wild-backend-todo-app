@@ -16,7 +16,6 @@ public class TodoCreateResource extends ResourceMethodHandler {
     @Override
     public String handle(String content) throws JsonProcessingException {
         TodoCreateRequestDto todoCreateRequestDto = objectMapper.readValue(content, TodoCreateRequestDto.class);
-        System.out.println(todoCreateRequestDto);
         Todo todo = new Todo(index, todoCreateRequestDto.title(), false);
         todoRepository.add(todo);
 
