@@ -21,10 +21,10 @@ public class CreateTaskResource implements RequestMethodHandler {
                 CreateTaskRequestDto.class
         );
 
-        String tasks = taskCreator.save(createTaskRequestDto.getContent());
+        String tasks = taskCreator.save(createTaskRequestDto.content());
 
         return objectMapper.writeValueAsString(
-                new CreateTaskResponseDto(tasks).getContent()
+                new CreateTaskResponseDto(tasks).content()
         );
     }
 }

@@ -14,8 +14,12 @@ dependencies {
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.0.1")
+    // 최신 버전의 Jackson 사용 (예: 2.14.0 이상)
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.0")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.14.0")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-parameter-names:2.14.0")
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
