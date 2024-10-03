@@ -1,6 +1,7 @@
 package com.example.demo.infrastructure;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class TodoRepository {
     private final ArrayList<Todo> todoArrayList = new ArrayList<>();
@@ -35,27 +36,16 @@ public class TodoRepository {
         }
     }
 
-    public void update(int id, String title, Boolean isCompleted) {
-        boolean found = false;
-        for (int i = 0; i < todoArrayList.size(); i++) {
-            if (todoArrayList.get(i).getId() == id) {
-                Todo existingTodo = todoArrayList.get(i);
-                if (title == null) {
-                    title = existingTodo.getTitle();
-                }
-                if (isCompleted == null) {
-                    isCompleted = existingTodo.isCompleted();
-                }
-                todoArrayList.set(i, new Todo(
-                        id,
-                        title
-                ));
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            throw new IllegalArgumentException("Todo with id " + id + " not found.");
-        }
+    public void update(int id, Optional<String> title, Optional<Boolean> isCompleted) {
+        Todo todoToUpdate = todoArrayList.stream()
+                .filter(todo -> todo.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> {
+                    throw new IllegalArgumentException("Todo with id " + id + " not found.");
+                });
+
+        title.ifPresent(todoToUpdate::setTitle);
+        isCompleted.ifPresent(todoToUpdate::setCompleted);
     }
+    
 }

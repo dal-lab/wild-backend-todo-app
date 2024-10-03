@@ -2,8 +2,8 @@ package com.example.demo.infrastructure;
 
 public class Todo {
     private final int id;
-    private final String title;
-    private final boolean isCompleted;
+    private String title;
+    private boolean isCompleted;
 
     public Todo(int id, String title) {
         this.id = id;
@@ -21,5 +21,14 @@ public class Todo {
 
     public boolean isCompleted() {
         return isCompleted;
+    }
+
+    public void setTitle(String s) {
+        this.title = s;
+
+    }
+
+    public void setCompleted(Boolean aBoolean) {
+        this.isCompleted = aBoolean;
     }
 }
