@@ -4,6 +4,7 @@ import com.example.demo.controller.CreateTaskResource;
 import com.example.demo.controller.FindTaskResource;
 import com.example.demo.controller.HomeResource;
 import com.example.demo.controller.ListTaskResource;
+import com.example.demo.controller.RemoveTaskResource;
 import com.example.demo.controller.UpdateTaskResource;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -64,6 +65,11 @@ public class RequestHandler implements HttpHandler {
         if (requestMethod.equals("PATCH") && requestUri.startsWith("/tasks/")) {
             Long taskId = getPathId(requestUri);
             return new UpdateTaskResource().handler(taskId, requestContent);
+        }
+
+        if (requestMethod.equals("DELETE") && requestUri.startsWith("/tasks/")) {
+            Long taskId = getPathId(requestUri);
+            return new RemoveTaskResource().handler(taskId);
         }
 
         return null;

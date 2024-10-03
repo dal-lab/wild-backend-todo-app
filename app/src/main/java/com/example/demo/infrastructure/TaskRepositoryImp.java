@@ -32,4 +32,9 @@ public class TaskRepositoryImp implements TaskRepository {
                 .filter(task -> task.getId() == id)
                 .findFirst();
     }
+
+    @Override
+    public void remove(Long id) {
+        tasks.removeIf(task -> task.getId() == id);
+    }
 }
