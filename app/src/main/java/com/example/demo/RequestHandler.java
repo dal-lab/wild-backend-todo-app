@@ -29,20 +29,20 @@ public class RequestHandler implements HttpHandler {
         sendResponse(exchange, responseContent);
     }
 
-    public String getRequestContent(HttpExchange exchange) throws IOException {
+    private String getRequestContent(HttpExchange exchange) throws IOException {
         InputStream inputStream = exchange.getRequestBody();
         return new String(inputStream.readAllBytes());
     }
 
-    public String getRequestMethod(HttpExchange exchange) {
+    private String getRequestMethod(HttpExchange exchange) {
         return exchange.getRequestMethod();
     }
 
-    public String getRequestUri(HttpExchange exchange) {
+    private String getRequestUri(HttpExchange exchange) {
         return exchange.getRequestURI().getPath();
     }
 
-    public String getResponseContent(String requestMethod, String requestUri,
+    private String getResponseContent(String requestMethod, String requestUri,
             String requestContent) throws IOException {
         if (requestMethod.equals("GET") && requestUri.equals("/")) {
             return new HomeResource().handler();
@@ -57,12 +57,12 @@ public class RequestHandler implements HttpHandler {
         }
 
         if (requestMethod.equals("GET") && requestUri.startsWith("/tasks/")) {
-            Long taskId = getaLong(requestUri);
+            Long taskId = getPathId(requestUri);
             return new FindTaskResource().handler(taskId);
         }
 
         if (requestMethod.equals("PATCH") && requestUri.startsWith("/tasks/")) {
-            Long taskId = getaLong(requestUri);
+            Long taskId = getPathId(requestUri);
             return new UpdateTaskResource().handler(taskId, requestContent);
         }
 
@@ -70,12 +70,12 @@ public class RequestHandler implements HttpHandler {
     }
 
 
-    private Long getaLong(String requestUri) {
+    private Long getPathId(String requestUri) {
         Long taskId = Long.parseLong(requestUri.substring("/tasks/".length()));
         return taskId;
     }
 
-    public void sendResponse(HttpExchange exchange, String responseContent)
+    private void sendResponse(HttpExchange exchange, String responseContent)
             throws IOException {
         byte[] bytes = responseContent.getBytes();
 
