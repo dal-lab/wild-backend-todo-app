@@ -30,6 +30,6 @@ public class Task {
     }
 
     public static long assignId(final long nextId) {
-        return new Task(nextId).id = nextId;
+        return nextId;
     }
 }
