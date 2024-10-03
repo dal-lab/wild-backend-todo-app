@@ -1,6 +1,8 @@
-package com.example.demo;
+package com.example.demo.controller;
 
-public class HomeResponse implements RequestMethodHandler {
+import com.example.demo.RequestMethodHandler;
+
+public class HomeResource implements RequestMethodHandler {
 
     public final static String KEY = "GET /";
 

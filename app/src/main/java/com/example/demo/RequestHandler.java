@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import com.example.demo.controller.CreateTaskResource;
+import com.example.demo.controller.HomeResource;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
@@ -13,7 +15,8 @@ public class RequestHandler implements HttpHandler {
     Map<String, RequestMethodHandler> handlers = new HashMap<>();
 
     public RequestHandler() {
-        handlers.put(HomeResponse.KEY, new HomeResponse());
+        handlers.put(HomeResource.KEY, new HomeResource());
+        handlers.put(CreateTaskResource.KEY, new CreateTaskResource());
     }
 
     @Override
