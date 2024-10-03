@@ -29,12 +29,12 @@ public class Task {
         this.contents = content;
     }
 
-    public static Task createTask(final long id, final String content) {
-        return new Task(id, content);
+    public static Task createTask(final String content) {
+        return new Task(content);
     }
 
-    public static long assignId(final long nextId) {
-        return nextId;
+    public void assignId(final long nextId) {
+        this.id = nextId;
     }
 
     @Override

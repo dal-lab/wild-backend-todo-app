@@ -3,11 +3,13 @@ package com.example.demo.infrastructure;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class TaskRepositoryImp implements TaskRepository {
 
     List<Task> tasks = new ArrayList<>();
     private static TaskRepositoryImp instance = null;
+    private final AtomicLong atomicLong = new AtomicLong(1);
 
     public static TaskRepositoryImp getInstance() {
         if (instance == null) {
@@ -18,6 +20,7 @@ public class TaskRepositoryImp implements TaskRepository {
 
     @Override
     public void save(final Task task) {
+        task.assignId(nextId());
         tasks.add(task);
     }
 
@@ -36,5 +39,9 @@ public class TaskRepositoryImp implements TaskRepository {
     @Override
     public void remove(Long id) {
         tasks.removeIf(task -> task.getId() == id);
+    }
+
+    private long nextId() {
+        return atomicLong.getAndIncrement();
     }
 }

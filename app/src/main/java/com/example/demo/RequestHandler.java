@@ -49,12 +49,12 @@ public class RequestHandler implements HttpHandler {
             return new HomeResource().handler();
         }
 
-        if (requestMethod.equals("GET") && requestUri.equals("/tasks")) {
-            return new ListTaskResource().handler();
-        }
-
         if (requestMethod.equals("POST") && requestUri.equals("/tasks")) {
             return new CreateTaskResource().handler(requestContent);
+        }
+
+        if (requestMethod.equals("GET") && requestUri.equals("/tasks")) {
+            return new ListTaskResource().handler();
         }
 
         if (requestMethod.equals("GET") && requestUri.startsWith("/tasks/")) {
