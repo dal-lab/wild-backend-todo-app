@@ -20,4 +20,13 @@ public class TodoRepository {
         }
         return instance;
     }
+
+    public void delete(int id) {
+        for (int i = 0; i < todoArrayList.size(); i++) {
+            if (todoArrayList.get(i).getId() == id) {
+                todoArrayList.remove(i);
+                break;
+            }
+        }
+    }
 }
