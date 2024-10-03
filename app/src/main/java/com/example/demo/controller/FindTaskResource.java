@@ -1,12 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.application.TaskFinder;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
 
 public class FindTaskResource {
+    private final TaskFinder taskFinder = new TaskFinder();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public String handler(String requestPath, Long id) throws IOException {
-        return "success";
+    public String handler(Long id) {
+        return taskFinder.getTask(id);
     }
 }

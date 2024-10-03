@@ -56,8 +56,8 @@ public class RequestHandler implements HttpHandler {
         }
 
         if (requestMethod.equals("GET") && requestUri.startsWith("/tasks/")) {
-            Long id = Long.parseLong(requestUri.substring("/tasks/".length()));
-            return new FindTaskResource().handler(requestContent, id);
+            Long taskId = Long.parseLong(requestUri.substring("/tasks/".length()));
+            return new FindTaskResource().handler(taskId);
         }
 
         return null;
