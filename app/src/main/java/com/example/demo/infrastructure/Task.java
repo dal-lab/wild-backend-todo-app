@@ -10,11 +10,11 @@ public class Task {
         this.contents = contents;
     }
 
-    public Task(final long id) {
-        this.id = id;
+    protected Task() {
     }
 
-    protected Task() {
+    public Task(String contents) {
+        this.contents = contents;
     }
 
     public long getId() {
@@ -25,11 +25,23 @@ public class Task {
         return contents;
     }
 
+    public void setContent(final String content) {
+        this.contents = content;
+    }
+
     public static Task createTask(final long id, final String content) {
         return new Task(id, content);
     }
 
     public static long assignId(final long nextId) {
         return nextId;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", contents='" + contents + '\'' +
+                '}';
     }
 }

@@ -4,6 +4,7 @@ import com.example.demo.controller.CreateTaskResource;
 import com.example.demo.controller.FindTaskResource;
 import com.example.demo.controller.HomeResource;
 import com.example.demo.controller.ListTaskResource;
+import com.example.demo.controller.UpdateTaskResource;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
@@ -56,11 +57,22 @@ public class RequestHandler implements HttpHandler {
         }
 
         if (requestMethod.equals("GET") && requestUri.startsWith("/tasks/")) {
-            Long taskId = Long.parseLong(requestUri.substring("/tasks/".length()));
+            Long taskId = getaLong(requestUri);
             return new FindTaskResource().handler(taskId);
         }
 
+        if (requestMethod.equals("PATCH") && requestUri.startsWith("/tasks/")) {
+            Long taskId = getaLong(requestUri);
+            return new UpdateTaskResource().handler(taskId, requestContent);
+        }
+
         return null;
+    }
+
+
+    private Long getaLong(String requestUri) {
+        Long taskId = Long.parseLong(requestUri.substring("/tasks/".length()));
+        return taskId;
     }
 
     public void sendResponse(HttpExchange exchange, String responseContent)
