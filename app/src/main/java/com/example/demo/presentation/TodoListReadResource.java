@@ -23,22 +23,15 @@ public class TodoListReadResource extends ResourceMethodHandler {
             return objectMapper.writeValueAsString(new MessageResponseDto("Todo를 불러오는데 Id가 필요하지 않습니다."));
         } else {
             try {
-
                 statusCode = 200;
                 List<Todo> todoList = todoRepository.getTodoArrayList();
-                return objectMapper.writeValueAsString(
-                        todoList.stream().map(
-                                todo -> new TodoCreateResponseDto(
-                                        todo.getId(),
-                                        todo.getTitle(),
-                                        todo.getIsCompleted()
-                                )
-                        ).collect(Collectors.toList())
-                );
+                List<TodoCreateResponseDto> todoResponseList = todoList.stream()
+                        .map(todo -> new TodoCreateResponseDto(todo.getId(), todo.getTitle(), todo.getIsCompleted()))
+                        .collect(Collectors.toList());
+                return objectMapper.writeValueAsString(todoResponseList);
             } catch (Exception e) {
                 statusCode = 400;
                 return objectMapper.writeValueAsString(new MessageResponseDto("잘못된 입력입니다: " + e.getMessage()));
-
             }
 
         }
