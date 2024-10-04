@@ -67,14 +67,13 @@ public class RequestHandler implements HttpHandler {
 
 
     private String getRequestContent(HttpExchange exchange) throws IOException {
+        int contentLength = Integer.parseInt(exchange.getRequestHeaders().getFirst("Content-Length"));
+        byte[] content = new byte[contentLength];
         try (InputStream inputStream = exchange.getRequestBody()) {
-            ByteArrayOutputStream result = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = inputStream.read(buffer)) != -1) {
-                result.write(buffer, 0, length);
-            }
-            return result.toString(StandardCharsets.UTF_8);
+            inputStream.readNBytes(content, 0, contentLength);
+            return new String(content, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new IOException("요청 본문을 읽는 중 오류가 발생했습니다", e);
         }
     }
 
