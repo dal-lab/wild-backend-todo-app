@@ -1,5 +1,7 @@
 package com.example.demo.infrastructure;
 
+import com.example.demo.presentation.TodoCreateResource;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -50,4 +52,11 @@ public class TodoRepository {
         return todoToUpdate;
     }
 
+    public void deleteAll() {
+        todoArrayList.clear();
+    }
+
+    public void resetIndex() {
+        TodoCreateResource.resetIndex();
+    }
 }

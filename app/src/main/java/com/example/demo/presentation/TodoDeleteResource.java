@@ -15,11 +15,15 @@ public class TodoDeleteResource extends ResourceMethodHandler {
     @Override
     public String handle(String content, Integer paramId) throws JsonProcessingException {
         if (paramId == null) {
-            statusCode = 400;
-            return objectMapper.writeValueAsString(new MessageResponseDto("Todo를 삭제하는데 Id가 필요합니다."));
+            //전부 제거
+            statusCode = 204;
+            todoRepository.deleteAll();
+            //index 초기화
+            todoRepository.resetIndex();
+            message = "All Todos deleted successfully";
         } else {
             try {
-                statusCode = 200;
+                statusCode = 204;
                 todoRepository.delete(paramId);
                 message = "Todo deleted successfully: " + paramId;
             } catch (IllegalArgumentException e) {
@@ -27,7 +31,6 @@ public class TodoDeleteResource extends ResourceMethodHandler {
                 message = "Todo not found: " + paramId;
             }
         }
-
         return objectMapper.writeValueAsString(new MessageResponseDto(
                 message
         ));

@@ -33,6 +33,11 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Todo'
+        delete:
+            summary: Delete all to-do items
+            responses:
+                '204':
+                    description: All to-do items deleted
 
     /todos/{id}:
         put:

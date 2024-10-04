@@ -74,4 +74,8 @@ public class TodoCreateResource extends ResourceMethodHandler {
         logger.error("잘못된 입력입니다: " + e.getMessage(), e);
         return objectMapper.writeValueAsString(new MessageResponseDto("잘못된 입력입니다: " + e.getMessage()));
     }
+
+    public static void resetIndex() {
+        index = 0;
+    }
 }
