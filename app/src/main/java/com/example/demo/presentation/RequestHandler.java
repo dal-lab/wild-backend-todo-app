@@ -52,13 +52,19 @@ public class RequestHandler implements HttpHandler {
 
     private Integer getRequestId(HttpExchange exchange) {
         String path = exchange.getRequestURI().getPath();
-        if (path.startsWith("/todos/")) {
-            String[] pathParts = path.split("/todos/");
-            return Integer.parseInt(pathParts[pathParts.length - 1]);
+        if (!path.startsWith("/todos/")) {
+            return null;
+        }
+
+        String idStr = path.substring("/todos/".length());
+        if (idStr.matches("\\d+")) {
+            return Integer.parseInt(idStr);
         } else {
+            System.out.printf("Invalid ID format: %s%n", idStr);
             return null;
         }
     }
+
 
     private String getRequestContent(HttpExchange exchange) throws IOException {
         try (InputStream inputStream = exchange.getRequestBody()) {
