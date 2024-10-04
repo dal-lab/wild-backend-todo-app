@@ -34,7 +34,7 @@ public class TodoUpdateResource extends ResourceMethodHandler {
             } catch (IllegalArgumentException e) {
                 statusCode = 404;
                 return objectMapper.writeValueAsString(new MessageResponseDto(
-                        "Todo not found: " + todoUpdateRequestDto.id()
+                        "Todo not found: " + paramId
                 ));
             }
         }
