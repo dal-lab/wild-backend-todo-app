@@ -68,9 +68,9 @@ public class RequestHandler implements HttpHandler {
     private static final int MAX_REQUEST_SIZE = 1024 * 1024; // 1MB
 
     private String getRequestContent(HttpExchange exchange) throws IOException {
-        int contentLength = Integer.parseInt(exchange.getRequestHeaders().getFirst("Content-Length"));
-        if (contentLength > MAX_REQUEST_SIZE) {
-            throw new IllegalArgumentException("요청 본문이 너무 큽니다.");
+        String contentLengthHeader = exchange.getRequestHeaders().getFirst("Content-Length");
+        if (contentLengthHeader == null) {
+            return "";
         }
         byte[] content = new byte[contentLength];
         try (InputStream inputStream = exchange.getRequestBody()) {
