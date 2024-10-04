@@ -18,25 +18,14 @@ public class TodoCreateResource extends ResourceMethodHandler {
     @Override
     public String handle(String content, Integer paramId) throws JsonProcessingException {
         if (paramId != null) {
-            statusCode = 400;
-            return objectMapper.writeValueAsString(new MessageResponseDto("Todo를 추가하는것에 Id가 필요하지 않습니다."));
+            return handleInvalidParamId();
         }
-
         try {
-            TodoCreateRequestDto todoCreateRequestDto = objectMapper.readValue(content, TodoCreateRequestDto.class);
-            Todo todo = new Todo(index, todoCreateRequestDto.title());
-            todoRepository.add(todo);
-            statusCode = 201;
-            return objectMapper.writeValueAsString(
-                    new TodoCreateResponseDto(
-                            index++,
-                            todoCreateRequestDto.title(),
-                            false
-                    )
-            );
+            return handleSuccessCase(content);
+        } catch (JsonProcessingException e) {
+            return handleJsonProcessingError(e);
         } catch (IllegalArgumentException e) {
-            statusCode = 400;
-            return objectMapper.writeValueAsString(new MessageResponseDto("잘못된 입력입니다: " + e.getMessage()));
+            return handleGeneralError(e);
         }
     }
 
@@ -48,5 +37,36 @@ public class TodoCreateResource extends ResourceMethodHandler {
     @Override
     public int getStatusCode() {
         return statusCode;
+    }
+
+    private String handleInvalidParamId() throws JsonProcessingException {
+        statusCode = 400;
+        return objectMapper.writeValueAsString(new MessageResponseDto("Todo를 추가하는것에 Id가 필요하지 않습니다."));
+    }
+
+    private String handleSuccessCase(String content) throws JsonProcessingException {
+        TodoCreateRequestDto todoCreateRequestDto = objectMapper.readValue(content, TodoCreateRequestDto.class);
+        Todo todo = new Todo(index, todoCreateRequestDto.title());
+        todoRepository.add(todo);
+        statusCode = 201;
+        return objectMapper.writeValueAsString(
+                new TodoCreateResponseDto(
+                        index++,
+                        todoCreateRequestDto.title(),
+                        false
+                )
+        );
+    }
+
+    private String handleJsonProcessingError(JsonProcessingException e) throws JsonProcessingException {
+        statusCode = 500;
+        // 로깅 추가
+        return objectMapper.writeValueAsString(new MessageResponseDto("내부 서버 오류: " + e.getMessage()));
+    }
+
+    private String handleGeneralError(Exception e) throws JsonProcessingException {
+        statusCode = 400;
+        // 로깅 추가
+        return objectMapper.writeValueAsString(new MessageResponseDto("잘못된 입력입니다: " + e.getMessage()));
     }
 }
