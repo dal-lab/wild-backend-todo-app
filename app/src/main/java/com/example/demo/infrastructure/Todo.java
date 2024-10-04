@@ -19,7 +19,7 @@ public class Todo {
         return title;
     }
 
-    public boolean isCompleted() {
+    public boolean getIsCompleted() {
         return isCompleted;
     }
 

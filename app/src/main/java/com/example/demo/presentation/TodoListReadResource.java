@@ -26,7 +26,7 @@ public class TodoListReadResource extends ResourceMethodHandler {
                             todo -> new TodoCreateResponseDto(
                                     todo.getId(),
                                     todo.getTitle(),
-                                    todo.isCompleted()
+                                    todo.getIsCompleted()
                             )
                     ).collect(Collectors.toList())
             );
