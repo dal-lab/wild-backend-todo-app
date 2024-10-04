@@ -38,17 +38,16 @@ paths:
         put:
             summary: Update a specific to-do item by ID
             parameters:
-                - in: path
-                  name: id
-                  required: true
-                  schema:
-                      type: integer
+                -   in: path
+                    name: id
+                    required: true
+                    schema:
+                        type: integer
             requestBody:
-                required: true
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/TodoInput'
+                            $ref: '#/components/schemas/TodoUpdate'
             responses:
                 '200':
                     description: To-do item updated
@@ -62,11 +61,11 @@ paths:
         delete:
             summary: Delete a specific to-do item by ID
             parameters:
-                - in: path
-                  name: id
-                  required: true
-                  schema:
-                      type: integer
+                -   in: path
+                    name: id
+                    required: true
+                    schema:
+                        type: integer
             responses:
                 '204':
                     description: To-do item deleted
@@ -82,7 +81,7 @@ components:
                     type: integer
                 title:
                     type: string
-                completed:
+                isCompleted:
                     type: boolean
             required:
                 - id
@@ -94,7 +93,14 @@ components:
             properties:
                 title:
                     type: string
-                completed:
+            required:
+                - title
+        TodoUpdate:
+            type: object
+            properties:
+                title:
+                    type: string
+                isCompleted:
                     type: boolean
             required:
                 - title
