@@ -3,13 +3,15 @@ package com.example.demo.presentation;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import java.io.ByteArrayOutputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.HashMap;
+
+import static com.example.demo.util.LoggerUtil.logger;
 
 public class RequestHandler implements HttpHandler {
     private final Map<String, ResourceMethodHandler> methodHandlers = new HashMap<>();
@@ -31,9 +33,9 @@ public class RequestHandler implements HttpHandler {
             Integer paramId = getRequestId(exchange);
             if (!methodHandlers.containsKey(requestKey)) {
                 responseContent = "methodHandlers에 " + requestKey + "가 없습니다.";
+                logger.error(responseContent);
                 throw new Exception(responseContent);
             }
-
             methodHandler = methodHandlers.get(requestKey);
             String requestContent = getRequestContent(exchange);
             responseContent = methodHandler.handle(requestContent, paramId);
@@ -65,13 +67,13 @@ public class RequestHandler implements HttpHandler {
         }
     }
 
-    private static final int MAX_REQUEST_SIZE = 1024 * 1024; // 1MB
 
     private String getRequestContent(HttpExchange exchange) throws IOException {
         String contentLengthHeader = exchange.getRequestHeaders().getFirst("Content-Length");
         if (contentLengthHeader == null) {
             return "";
         }
+        int contentLength = Integer.parseInt(contentLengthHeader);
         byte[] content = new byte[contentLength];
         try (InputStream inputStream = exchange.getRequestBody()) {
             inputStream.readNBytes(content, 0, contentLength);

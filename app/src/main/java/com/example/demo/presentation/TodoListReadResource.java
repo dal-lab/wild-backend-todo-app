@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.demo.util.LoggerUtil.logger;
+
 public class TodoListReadResource extends ResourceMethodHandler {
     static final String KEY = "GET /todos";
     private final TodoRepository todoRepository = TodoRepository.getInstance();
@@ -19,6 +21,7 @@ public class TodoListReadResource extends ResourceMethodHandler {
     @Override
     public String handle(String content, Integer paramId) throws JsonProcessingException {
         if (paramId != null) {
+            logger.error("TodoListReadResource - handle - invalid paramId");
             return handleInvalidParamId();
         }
         try {
@@ -56,14 +59,18 @@ public class TodoListReadResource extends ResourceMethodHandler {
 
     private String handleJsonProcessingError(JsonProcessingException e) throws JsonProcessingException {
         statusCode = 500;
+        String message = "내부 서버 오류: " + e.getMessage();
         // 로깅 추가
-        return objectMapper.writeValueAsString(new MessageResponseDto("내부 서버 오류: " + e.getMessage()));
+        logger.error(message);
+        return objectMapper.writeValueAsString(new MessageResponseDto(message));
     }
 
     private String handleGeneralError(Exception e) throws JsonProcessingException {
         statusCode = 400;
+        String message = "잘못된 입력입니다: " + e.getMessage();
         // 로깅 추가
-        return objectMapper.writeValueAsString(new MessageResponseDto("잘못된 입력입니다: " + e.getMessage()));
+        logger.error(message);
+        return objectMapper.writeValueAsString(new MessageResponseDto(message));
     }
 
 }
