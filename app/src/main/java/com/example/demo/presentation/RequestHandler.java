@@ -24,6 +24,7 @@ public class RequestHandler implements HttpHandler {
     @Override
     public void handle(com.sun.net.httpserver.HttpExchange exchange) throws IOException {
         String responseContent = "";
+        ResourceMethodHandler methodHandler = null;
         try {
             String requestKey = getRequestKey(exchange);
             Integer paramId = getRequestId(exchange);
@@ -32,7 +33,7 @@ public class RequestHandler implements HttpHandler {
                 throw new Exception(responseContent);
             }
 
-            ResourceMethodHandler methodHandler = methodHandlers.get(requestKey);
+            methodHandler = methodHandlers.get(requestKey);
             String requestContent = getRequestContent(exchange);
             responseContent = methodHandler.handle(requestContent, paramId);
 
@@ -41,7 +42,8 @@ public class RequestHandler implements HttpHandler {
         }
 
         byte[] responseContentBytes = responseContent.getBytes(StandardCharsets.UTF_8);
-        exchange.sendResponseHeaders(200, responseContentBytes.length);
+        assert methodHandler != null;
+        exchange.sendResponseHeaders(methodHandler.getStatusCode(), responseContentBytes.length);
         try (OutputStream outputStream = exchange.getResponseBody()) {
             outputStream.write(responseContentBytes);
         }

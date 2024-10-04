@@ -10,16 +10,20 @@ public class TodoDeleteResource extends ResourceMethodHandler {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final TodoRepository todoRepository = TodoRepository.getInstance();
     String message = "";
+    private int statusCode;
 
     @Override
     public String handle(String content, Integer paramId) throws JsonProcessingException {
         if (paramId == null) {
+            statusCode = 400;
             return objectMapper.writeValueAsString(new MessageResponseDto("Todo를 삭제하는데 Id가 필요합니다."));
         } else {
             try {
+                statusCode = 200;
                 todoRepository.delete(paramId);
                 message = "Todo deleted successfully: " + paramId;
             } catch (IllegalArgumentException e) {
+                statusCode = 404;
                 message = "Todo not found: " + paramId;
             }
         }
@@ -32,5 +36,10 @@ public class TodoDeleteResource extends ResourceMethodHandler {
     @Override
     public String getKey() {
         return KEY;
+    }
+
+    @Override
+    public int getStatusCode() {
+        return statusCode;
     }
 }
