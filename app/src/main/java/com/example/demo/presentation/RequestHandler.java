@@ -46,7 +46,7 @@ public class RequestHandler implements HttpHandler {
 
         byte[] responseContentBytes = responseContent.getBytes(StandardCharsets.UTF_8);
         assert methodHandler != null;
-        exchange.sendResponseHeaders(methodHandler.getStatusCode(), responseContentBytes.length);
+        exchange.sendResponseHeaders(methodHandler.getStatusCode(), methodHandler.getStatusCode() == 204 ? -1 : responseContentBytes.length);
         try (OutputStream outputStream = exchange.getResponseBody()) {
             outputStream.write(responseContentBytes);
         }
