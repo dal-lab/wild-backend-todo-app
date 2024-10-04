@@ -9,6 +9,8 @@ repositories {
 }
 
 dependencies {
+    implementation("org.apache.logging.log4j:log4j-core:2.24.1")
+    implementation("org.apache.logging.log4j:log4j-api:2.24.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.0")
 
     // Use JUnit Jupiter for testing.
