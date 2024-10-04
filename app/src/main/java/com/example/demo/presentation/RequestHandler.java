@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 public class RequestHandler implements HttpHandler {
     private final Map<String, ResourceMethodHandler> methodHandlers = new HashMap<>();
+    private static final String TODOS_PATH = "/todos";
 
     public RequestHandler() {
         methodHandlers.put(TodoListReadResource.KEY, new TodoListReadResource());
@@ -74,9 +75,15 @@ public class RequestHandler implements HttpHandler {
     private String getRequestKey(HttpExchange exchange) {
         String method = exchange.getRequestMethod();
         String path = exchange.getRequestURI().getPath();
-        if (path.startsWith("/todos/")) {
-            return method + " " + "/todos";
-        }
-        return method + " " + path;
+        String normalizedPath = normalizePath(path);
+        return method + " " + normalizedPath;
     }
+
+    private String normalizePath(String path) {
+        if (path.startsWith(TODOS_PATH + "/")) {
+            return TODOS_PATH;
+        }
+        return path;
+    }
+
 }
