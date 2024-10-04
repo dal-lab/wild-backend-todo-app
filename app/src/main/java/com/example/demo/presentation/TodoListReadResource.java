@@ -19,13 +19,13 @@ public class TodoListReadResource extends ResourceMethodHandler {
     public String handle(String content) throws JsonProcessingException {
         List<Todo> todoList = todoRepository.getTodoArrayList();
         return objectMapper.writeValueAsString(
-                new TodoListReadResponseDto(todoList.stream().map(
+                todoList.stream().map(
                         todo -> new TodoCreateResponseDto(
                                 todo.getId(),
                                 todo.getTitle(),
                                 todo.isCompleted()
                         )
-                ).collect(Collectors.toList()))
+                ).collect(Collectors.toList())
         );
     }
 

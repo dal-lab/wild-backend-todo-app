@@ -3,7 +3,8 @@ info:
     title: To-Do List API
     version: 1.0.0
     description: A simple API for managing a to-do list.
-
+servers:
+    -   url: http://localhost:8080
 paths:
     /todos:
         get:
