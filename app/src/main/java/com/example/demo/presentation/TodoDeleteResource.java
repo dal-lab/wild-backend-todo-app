@@ -2,7 +2,6 @@ package com.example.demo.presentation;
 
 import com.example.demo.infrastructure.TodoRepository;
 import com.example.demo.presentation.dto.MessageResponseDto;
-import com.example.demo.presentation.dto.TodoDeleteRequestDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,13 +12,16 @@ public class TodoDeleteResource extends ResourceMethodHandler {
     String message = "";
 
     @Override
-    public String handle(String content) throws JsonProcessingException {
-        TodoDeleteRequestDto todoDeleteRequestDto = objectMapper.readValue(content, TodoDeleteRequestDto.class);
-        try {
-            todoRepository.delete(todoDeleteRequestDto.id());
-            message = "Todo deleted successfully: " + todoDeleteRequestDto.id();
-        } catch (IllegalArgumentException e) {
-            message = "Todo not found: " + todoDeleteRequestDto.id();
+    public String handle(String content, Integer paramId) throws JsonProcessingException {
+        if (paramId == null) {
+            return objectMapper.writeValueAsString(new MessageResponseDto("Todo를 삭제하는데 Id가 필요합니다."));
+        } else {
+            try {
+                todoRepository.delete(paramId);
+                message = "Todo deleted successfully: " + paramId;
+            } catch (IllegalArgumentException e) {
+                message = "Todo not found: " + paramId;
+            }
         }
 
         return objectMapper.writeValueAsString(new MessageResponseDto(

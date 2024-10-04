@@ -15,19 +15,23 @@ public class TodoUpdateResource extends ResourceMethodHandler {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public String handle(String content) throws JsonProcessingException {
-        TodoUpdateRequestDto todoUpdateRequestDto = objectMapper.readValue(content, TodoUpdateRequestDto.class);
-        try {
-            todoRepository.update(todoUpdateRequestDto.id(), Optional.ofNullable(todoUpdateRequestDto.title()), Optional.of(todoUpdateRequestDto.isCompleted()));
-            return objectMapper.writeValueAsString(new TodoUpdateResponseDto(
-                    todoUpdateRequestDto.id(),
-                    todoUpdateRequestDto.title(),
-                    todoUpdateRequestDto.isCompleted()
-            ));
-        } catch (IllegalArgumentException e) {
-            return objectMapper.writeValueAsString(new MessageResponseDto(
-                    "Todo not found: " + todoUpdateRequestDto.id()
-            ));
+    public String handle(String content, Integer paramId) throws JsonProcessingException {
+        if (paramId == null) {
+            return objectMapper.writeValueAsString(new MessageResponseDto("Todo를 수정하는데 Id가 필요합니다."));
+        } else {
+            TodoUpdateRequestDto todoUpdateRequestDto = objectMapper.readValue(content, TodoUpdateRequestDto.class);
+            try {
+                todoRepository.update(paramId, Optional.ofNullable(todoUpdateRequestDto.title()), Optional.of(todoUpdateRequestDto.isCompleted()));
+                return objectMapper.writeValueAsString(new TodoUpdateResponseDto(
+                        todoUpdateRequestDto.id(),
+                        todoUpdateRequestDto.title(),
+                        todoUpdateRequestDto.isCompleted()
+                ));
+            } catch (IllegalArgumentException e) {
+                return objectMapper.writeValueAsString(new MessageResponseDto(
+                        "Todo not found: " + todoUpdateRequestDto.id()
+                ));
+            }
         }
 
 

@@ -24,19 +24,19 @@ public class RequestHandler implements HttpHandler {
     @Override
     public void handle(com.sun.net.httpserver.HttpExchange exchange) throws IOException {
         String responseContent = "";
-        try{
+        try {
             String requestKey = getRequestKey(exchange);
+            Integer paramId = getRequestId(exchange);
             if (!methodHandlers.containsKey(requestKey)) {
-                System.out.println("methodHandlers에 " + requestKey + "가 없습니다.");
-                responseContent = "Not Found";
-                throw new Exception("Not Found");
+                responseContent = "methodHandlers에 " + requestKey + "가 없습니다.";
+                throw new Exception(responseContent);
             }
 
             ResourceMethodHandler methodHandler = methodHandlers.get(requestKey);
             String requestContent = getRequestContent(exchange);
-            responseContent = methodHandler.handle(requestContent);
+            responseContent = methodHandler.handle(requestContent, paramId);
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             responseContent = e.getMessage();
         }
 
@@ -44,6 +44,16 @@ public class RequestHandler implements HttpHandler {
         exchange.sendResponseHeaders(200, responseContentBytes.length);
         try (OutputStream outputStream = exchange.getResponseBody()) {
             outputStream.write(responseContentBytes);
+        }
+    }
+
+    private Integer getRequestId(HttpExchange exchange) {
+        String path = exchange.getRequestURI().getPath();
+        if (path.startsWith("/todos/")) {
+            String[] pathParts = path.split("/todos/");
+            return Integer.parseInt(pathParts[pathParts.length - 1]);
+        } else {
+            return null;
         }
     }
 
@@ -62,6 +72,9 @@ public class RequestHandler implements HttpHandler {
     private String getRequestKey(HttpExchange exchange) {
         String method = exchange.getRequestMethod();
         String path = exchange.getRequestURI().getPath();
+        if (path.startsWith("/todos/")) {
+            return method + " " + "/todos";
+        }
         return method + " " + path;
     }
 }

@@ -36,7 +36,7 @@ public class TodoRepository {
         }
     }
 
-    public void update(int id, Optional<String> title, Optional<Boolean> isCompleted) {
+    public void update(Integer id, Optional<String> title, Optional<Boolean> isCompleted) {
         Todo todoToUpdate = todoArrayList.stream()
                 .filter(todo -> todo.getId() == id)
                 .findFirst()
@@ -47,5 +47,5 @@ public class TodoRepository {
         title.ifPresent(todoToUpdate::setTitle);
         isCompleted.ifPresent(todoToUpdate::setCompleted);
     }
-    
+
 }
