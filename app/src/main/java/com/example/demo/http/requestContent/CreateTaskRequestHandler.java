@@ -7,8 +7,6 @@ import java.io.IOException;
 
 public class CreateTaskRequestHandler implements RequestHandlerStrategy {
 
-    private final CreateTaskResource createTaskResource = new CreateTaskResource();
-
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
         return new PostMethod("/tasks").isMethod(requestAttribute);
@@ -16,6 +14,7 @@ public class CreateTaskRequestHandler implements RequestHandlerStrategy {
 
     @Override
     public String handle(RequestAttribute requestAttribute) throws IOException {
-        return createTaskResource.handler(requestAttribute.requestContent());
+        return new CreateTaskResource().handler(
+                requestAttribute.requestContent());
     }
 }

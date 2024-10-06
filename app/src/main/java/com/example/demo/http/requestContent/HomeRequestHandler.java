@@ -6,8 +6,6 @@ import com.example.demo.http.request.RequestAttribute;
 
 public class HomeRequestHandler implements RequestHandlerStrategy {
 
-    private final HomeResource homeResource = new HomeResource();
-
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
         return new ListMethod("/").isMethod(requestAttribute);
@@ -15,6 +13,6 @@ public class HomeRequestHandler implements RequestHandlerStrategy {
 
     @Override
     public String handle(RequestAttribute requestAttribute) {
-        return homeResource.handler();
+        return new HomeResource().handler();
     }
 }

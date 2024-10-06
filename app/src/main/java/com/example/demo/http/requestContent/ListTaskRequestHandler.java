@@ -7,8 +7,6 @@ import java.io.IOException;
 
 public class ListTaskRequestHandler implements RequestHandlerStrategy {
 
-    private final ListTaskResource listTaskResource = new ListTaskResource();
-
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
         return new ListMethod("/tasks").isMethod(requestAttribute);
@@ -16,6 +14,6 @@ public class ListTaskRequestHandler implements RequestHandlerStrategy {
 
     @Override
     public String handle(RequestAttribute requestAttribute) throws IOException {
-        return listTaskResource.handler();
+        return new ListTaskResource().handler();
     }
 }

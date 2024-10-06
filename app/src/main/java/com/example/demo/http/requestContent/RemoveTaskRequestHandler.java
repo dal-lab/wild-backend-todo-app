@@ -6,7 +6,6 @@ import com.example.demo.http.request.RequestAttribute;
 
 public class RemoveTaskRequestHandler implements RequestHandlerStrategy {
 
-    private final RemoveTaskResource removeTaskResource = new RemoveTaskResource();
     private final TaskPathId taskPathId = new TaskPathId();
 
     @Override
@@ -17,6 +16,6 @@ public class RemoveTaskRequestHandler implements RequestHandlerStrategy {
     @Override
     public String handle(RequestAttribute requestAttribute) {
         Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
-        return removeTaskResource.handler(taskId);
+        return new RemoveTaskResource().handler(taskId);
     }
 }

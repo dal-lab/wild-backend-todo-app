@@ -7,7 +7,6 @@ import java.io.IOException;
 
 public class UpdateTaskRequestHandler implements RequestHandlerStrategy {
 
-    private final UpdateTaskResource updateTaskResource = new UpdateTaskResource();
     private final TaskPathId taskPathId = new TaskPathId();
 
     @Override
@@ -18,7 +17,7 @@ public class UpdateTaskRequestHandler implements RequestHandlerStrategy {
     @Override
     public String handle(RequestAttribute requestAttribute) throws IOException {
         Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
-        return updateTaskResource.handler(taskId,
+        return new UpdateTaskResource().handler(taskId,
                 requestAttribute.requestContent());
     }
 }
