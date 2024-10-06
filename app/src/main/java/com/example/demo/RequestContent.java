@@ -4,15 +4,14 @@ import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class RequestContent {
-
-    private final HttpExchange exchange;
+public class RequestContent extends Request {
 
     public RequestContent(HttpExchange exchange) {
-        this.exchange = exchange;
+        super(exchange);
     }
 
-    public String getRequestContent() throws IOException {
+    @Override
+    public String handleRequest() throws IOException {
         InputStream inputStream = this.exchange.getRequestBody();
         return new String(inputStream.readAllBytes());
     }

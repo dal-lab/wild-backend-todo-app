@@ -15,10 +15,10 @@ public class RequestHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         String requestContent = new RequestContent(
-                exchange).getRequestContent();
+                exchange).handleRequest();
 
-        String requestMethod = new RequestMethod(exchange).getRequestMethod();
-        String requestUri = new RequestUri(exchange).getRequestUri();
+        String requestMethod = new RequestMethod(exchange).handleRequest();
+        String requestUri = new RequestUri(exchange).handleRequest();
 
         String responseContent = getResponseContent(requestMethod, requestUri,
                 requestContent);

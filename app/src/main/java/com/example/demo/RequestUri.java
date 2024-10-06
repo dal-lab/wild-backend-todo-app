@@ -1,17 +1,16 @@
 package com.example.demo;
 
 import com.sun.net.httpserver.HttpExchange;
+import java.io.IOException;
 
-public class RequestUri {
-
-    private final HttpExchange exchange;
+public class RequestUri extends Request {
 
     public RequestUri(HttpExchange exchange) {
-        this.exchange = exchange;
+        super(exchange);
     }
 
-    public String getRequestUri() {
+    @Override
+    public String handleRequest() throws IOException {
         return this.exchange.getRequestURI().getPath();
     }
-
 }

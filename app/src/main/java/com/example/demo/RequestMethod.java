@@ -1,17 +1,16 @@
 package com.example.demo;
 
 import com.sun.net.httpserver.HttpExchange;
+import java.io.IOException;
 
-public class RequestMethod {
+public class RequestMethod extends Request {
 
     public RequestMethod(HttpExchange exchange) {
-        this.exchange = exchange;
+        super(exchange);
     }
 
-    private final HttpExchange exchange;
-
-
-    public String getRequestMethod() {
+    @Override
+    public String handleRequest() throws IOException {
         return this.exchange.getRequestMethod();
     }
 }
