@@ -7,9 +7,11 @@ import java.io.IOException;
 
 public class CreateTaskRequestHandler implements RequestHandlerStrategy {
 
+    private final String URI_PREFIX = "/tasks";
+
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
-        return new PostMethod("/tasks").isMethod(requestAttribute);
+        return new PostMethod(URI_PREFIX).isMethod(requestAttribute);
     }
 
     @Override

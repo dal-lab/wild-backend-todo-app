@@ -8,16 +8,18 @@ import java.io.IOException;
 public class FindTaskRequestHandler implements RequestHandlerStrategy {
 
     private final TaskPathId taskPathId = new TaskPathId();
+    private final String URI_PREFIX = "/tasks/";
 
     @Override
     public boolean matches(final RequestAttribute requestAttribute) {
-        return new GetMethod("/tasks/").isMethod(requestAttribute);
+        return new GetMethod(URI_PREFIX).isMethod(requestAttribute);
     }
 
     @Override
     public String handle(final RequestAttribute requestAttribute)
             throws IOException {
-        Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
+        Long taskId = taskPathId.getPathId(requestAttribute.requestURI(),
+                URI_PREFIX);
         return new FindTaskResource().handler(taskId);
     }
 }

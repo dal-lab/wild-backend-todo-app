@@ -7,15 +7,17 @@ import com.example.demo.http.request.RequestAttribute;
 public class RemoveTaskRequestHandler implements RequestHandlerStrategy {
 
     private final TaskPathId taskPathId = new TaskPathId();
+    private final String URI_PREFIX = "/tasks/";
 
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
-        return new DeleteMethod("/tasks/").isMethod(requestAttribute);
+        return new DeleteMethod(URI_PREFIX).isMethod(requestAttribute);
     }
 
     @Override
     public String handle(RequestAttribute requestAttribute) {
-        Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
+        Long taskId = taskPathId.getPathId(requestAttribute.requestURI(),
+                URI_PREFIX);
         return new RemoveTaskResource().handler(taskId);
     }
 }

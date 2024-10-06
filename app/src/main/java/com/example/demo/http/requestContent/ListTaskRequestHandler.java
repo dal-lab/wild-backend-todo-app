@@ -7,9 +7,11 @@ import java.io.IOException;
 
 public class ListTaskRequestHandler implements RequestHandlerStrategy {
 
+    private final String URI_PREFIX = "/tasks";
+
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
-        return new ListMethod("/tasks").isMethod(requestAttribute);
+        return new ListMethod(URI_PREFIX).isMethod(requestAttribute);
     }
 
     @Override

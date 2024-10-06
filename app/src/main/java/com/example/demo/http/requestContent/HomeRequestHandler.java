@@ -6,9 +6,11 @@ import com.example.demo.http.request.RequestAttribute;
 
 public class HomeRequestHandler implements RequestHandlerStrategy {
 
+    private final String URI_PREFIX = "/";
+
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
-        return new ListMethod("/").isMethod(requestAttribute);
+        return new ListMethod(URI_PREFIX).isMethod(requestAttribute);
     }
 
     @Override
