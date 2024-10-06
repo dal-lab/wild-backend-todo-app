@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.http;
 
 import com.sun.net.httpserver.HttpExchange;
 

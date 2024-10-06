@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.http;
 
 import com.example.demo.controller.CreateTaskResource;
 import com.example.demo.controller.FindTaskResource;
