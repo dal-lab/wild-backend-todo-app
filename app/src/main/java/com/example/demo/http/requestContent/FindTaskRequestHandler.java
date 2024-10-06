@@ -7,7 +7,6 @@ import java.io.IOException;
 
 public class FindTaskRequestHandler implements RequestHandlerStrategy {
 
-    private final TaskPathId taskPathId = new TaskPathId();
     private final String URI_PREFIX = "/tasks/";
 
     @Override
@@ -18,8 +17,9 @@ public class FindTaskRequestHandler implements RequestHandlerStrategy {
     @Override
     public String handle(final RequestAttribute requestAttribute)
             throws IOException {
-        Long taskId = taskPathId.getPathId(requestAttribute.requestURI(),
+        Long taskId = new TaskPathId().getPathId(requestAttribute.requestURI(),
                 URI_PREFIX);
+
         return new FindTaskResource().handler(taskId);
     }
 }
