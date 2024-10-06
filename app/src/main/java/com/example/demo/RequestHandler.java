@@ -58,26 +58,21 @@ public class RequestHandler implements HttpHandler {
         }
 
         if (requestMethod.equals("GET") && requestUri.startsWith("/tasks/")) {
-            Long taskId = getPathId(requestUri);
+            Long taskId = new TaskPathId().getPathId(requestUri);
             return new FindTaskResource().handler(taskId);
         }
 
         if (requestMethod.equals("PATCH") && requestUri.startsWith("/tasks/")) {
-            Long taskId = getPathId(requestUri);
+            Long taskId = new TaskPathId().getPathId(requestUri);
             return new UpdateTaskResource().handler(taskId, requestContent);
         }
 
         if (requestMethod.equals("DELETE") && requestUri.startsWith(
                 "/tasks/")) {
-            Long taskId = getPathId(requestUri);
+            Long taskId = new TaskPathId().getPathId(requestUri);
             return new RemoveTaskResource().handler(taskId);
         }
 
         return null;
-    }
-
-    private Long getPathId(String requestUri) {
-        Long taskId = Long.parseLong(requestUri.substring("/tasks/".length()));
-        return taskId;
     }
 }
