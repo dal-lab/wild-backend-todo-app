@@ -7,11 +7,6 @@ public class ResponseNotFound extends Response {
     private static final int STATUS_CODE = 404;
 
     public ResponseNotFound(HttpExchange exchange) {
-        super(exchange);
-    }
-
-    @Override
-    protected int httpStatusCode() {
-        return STATUS_CODE;
+        super(exchange, STATUS_CODE);
     }
 }
