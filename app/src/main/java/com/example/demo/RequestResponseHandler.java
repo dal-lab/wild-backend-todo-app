@@ -13,20 +13,10 @@ public class RequestResponseHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         RequestHandler requestHandler = new RequestHandler(exchange);
 
-        String responseContent = getResponseContent(requestHandler);
+        String responseContent = new ResponseContent().getResponseContent(
+                requestHandler);
 
         new ResponseHandler(exchange).send(responseContent);
 
-    }
-
-    private String getResponseContent(RequestHandler requestHandler)
-            throws IOException {
-        String requestContent = requestHandler.getRequestContent();
-        String requestMethod = requestHandler.getRequestMethod();
-        String requestURI = requestHandler.getRequestURI();
-
-        String responseContent = new ResponseContent().getResponseContent(
-                requestMethod, requestURI, requestContent);
-        return responseContent;
     }
 }
