@@ -1,8 +1,8 @@
 package com.example.demo;
 
-import com.example.demo.http.RequestHandler;
-import com.example.demo.http.ResponseContent;
-import com.example.demo.http.ResponseHandler;
+import com.example.demo.http.request.RequestHandler;
+import com.example.demo.http.response.ResponseContent;
+import com.example.demo.http.response.ResponseHandler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;

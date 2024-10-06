@@ -1,12 +1,12 @@
-package com.example.demo.http.content;
+package com.example.demo.http.requestContent;
 
 import com.example.demo.controller.ListTaskResource;
-import com.example.demo.http.RequestAttribute;
+import com.example.demo.http.request.RequestAttribute;
 import java.io.IOException;
 
 public class ListTaskRequestHandler implements RequestHandlerStrategy {
 
-    ListTaskResource listTaskResource = new ListTaskResource();
+    private final ListTaskResource listTaskResource = new ListTaskResource();
 
     @Override
     public boolean matches(RequestAttribute requestAttribute) {

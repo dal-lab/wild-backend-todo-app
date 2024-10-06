@@ -1,4 +1,4 @@
-package com.example.demo.http;
+package com.example.demo.http.request;
 
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;

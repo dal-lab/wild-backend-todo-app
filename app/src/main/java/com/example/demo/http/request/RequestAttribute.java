@@ -1,4 +1,4 @@
-package com.example.demo.http;
+package com.example.demo.http.request;
 
 public record RequestAttribute(
         String requestContent,

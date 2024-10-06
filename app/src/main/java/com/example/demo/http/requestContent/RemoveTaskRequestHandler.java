@@ -1,8 +1,7 @@
-package com.example.demo.http.content;
+package com.example.demo.http.requestContent;
 
 import com.example.demo.controller.RemoveTaskResource;
-import com.example.demo.http.RequestAttribute;
-import com.example.demo.http.TaskPathId;
+import com.example.demo.http.request.RequestAttribute;
 import java.io.IOException;
 
 public class RemoveTaskRequestHandler implements RequestHandlerStrategy {

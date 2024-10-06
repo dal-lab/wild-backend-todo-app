@@ -1,12 +1,15 @@
-package com.example.demo.http;
+package com.example.demo.http.response;
 
-import com.example.demo.http.content.CreateTaskRequestHandler;
-import com.example.demo.http.content.FindTaskRequestHandler;
-import com.example.demo.http.content.HomeRequestHandler;
-import com.example.demo.http.content.ListTaskRequestHandler;
-import com.example.demo.http.content.RemoveTaskRequestHandler;
-import com.example.demo.http.content.RequestHandlerStrategy;
-import com.example.demo.http.content.UpdateTaskRequestHandler;
+import com.example.demo.http.request.RequestAttribute;
+import com.example.demo.http.request.RequestBody;
+import com.example.demo.http.request.RequestHandler;
+import com.example.demo.http.requestContent.CreateTaskRequestHandler;
+import com.example.demo.http.requestContent.FindTaskRequestHandler;
+import com.example.demo.http.requestContent.HomeRequestHandler;
+import com.example.demo.http.requestContent.ListTaskRequestHandler;
+import com.example.demo.http.requestContent.RemoveTaskRequestHandler;
+import com.example.demo.http.requestContent.RequestHandlerStrategy;
+import com.example.demo.http.requestContent.UpdateTaskRequestHandler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
