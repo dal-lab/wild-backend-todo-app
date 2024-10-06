@@ -1,6 +1,7 @@
 package com.example.demo.http.requestContent;
 
 import com.example.demo.controller.UpdateTaskResource;
+import com.example.demo.http.method.PatchMethod;
 import com.example.demo.http.request.RequestAttribute;
 import java.io.IOException;
 
@@ -11,7 +12,7 @@ public class UpdateTaskRequestHandler implements RequestHandlerStrategy {
 
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
-        return isPatch(requestAttribute);
+        return new PatchMethod("/tasks/").isMethod(requestAttribute);
     }
 
     @Override
@@ -19,11 +20,6 @@ public class UpdateTaskRequestHandler implements RequestHandlerStrategy {
         Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
         return updateTaskResource.handler(taskId,
                 requestAttribute.requestContent());
-    }
-
-    private boolean isPatch(RequestAttribute requestAttribute) {
-        return requestAttribute.requestMethod().equals("PATCH")
-                && requestAttribute.requestURI().startsWith("/tasks/");
     }
 }
 

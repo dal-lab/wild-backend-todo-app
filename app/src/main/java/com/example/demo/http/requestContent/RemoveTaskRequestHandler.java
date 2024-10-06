@@ -1,6 +1,7 @@
 package com.example.demo.http.requestContent;
 
 import com.example.demo.controller.RemoveTaskResource;
+import com.example.demo.http.method.DeleteMethod;
 import com.example.demo.http.request.RequestAttribute;
 
 public class RemoveTaskRequestHandler implements RequestHandlerStrategy {
@@ -10,18 +11,12 @@ public class RemoveTaskRequestHandler implements RequestHandlerStrategy {
 
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
-        return isDelete(requestAttribute);
+        return new DeleteMethod("/tasks/").isMethod(requestAttribute);
     }
 
     @Override
     public String handle(RequestAttribute requestAttribute) {
         Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
         return removeTaskResource.handler(taskId);
-    }
-
-    private boolean isDelete(RequestAttribute requestAttribute) {
-        return requestAttribute.requestMethod().equals("DELETE")
-                && requestAttribute.requestURI().startsWith(
-                "/tasks/");
     }
 }

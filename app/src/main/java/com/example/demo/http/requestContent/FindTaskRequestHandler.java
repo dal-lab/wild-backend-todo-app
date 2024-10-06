@@ -1,6 +1,7 @@
 package com.example.demo.http.requestContent;
 
 import com.example.demo.controller.FindTaskResource;
+import com.example.demo.http.method.GetMethod;
 import com.example.demo.http.request.RequestAttribute;
 import java.io.IOException;
 
@@ -11,7 +12,7 @@ public class FindTaskRequestHandler implements RequestHandlerStrategy {
 
     @Override
     public boolean matches(final RequestAttribute requestAttribute) {
-        return isGet(requestAttribute);
+        return new GetMethod("/tasks/").isMethod(requestAttribute);
     }
 
     @Override
@@ -19,10 +20,5 @@ public class FindTaskRequestHandler implements RequestHandlerStrategy {
             throws IOException {
         Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
         return findTaskResource.handler(taskId);
-    }
-
-    private boolean isGet(RequestAttribute requestAttribute) {
-        return requestAttribute.requestMethod().equals("GET")
-                && requestAttribute.requestURI().startsWith("/tasks/");
     }
 }
