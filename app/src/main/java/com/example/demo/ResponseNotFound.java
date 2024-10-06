@@ -1,19 +1,17 @@
 package com.example.demo;
 
 import com.sun.net.httpserver.HttpExchange;
-import java.io.IOException;
 
-public class ResponseNotFound {
+public class ResponseNotFound extends Response {
 
     private static final int STATUS_CODE = 404;
 
-    private final HttpExchange exchange;
-
     public ResponseNotFound(HttpExchange exchange) {
-        this.exchange = exchange;
+        super(exchange);
     }
 
-    public void send() throws IOException {
-        exchange.sendResponseHeaders(STATUS_CODE, -1);
+    @Override
+    protected int httpStatusCode() {
+        return STATUS_CODE;
     }
 }
