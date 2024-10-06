@@ -24,10 +24,10 @@ public class RequestHandler implements HttpHandler {
                 requestContent);
 
         if (responseContent == null) {
-            exchange.sendResponseHeaders(404, -1);
+            exchange.sendResponseHeaders(HttpStatus.NOT_FOUND.value(), -1);
         }
 
-        sendResponse(exchange, responseContent);
+        new ResponseSuccess(exchange).send(responseContent);
     }
 
     private String getRequestContent(HttpExchange exchange) throws IOException {
@@ -67,7 +67,8 @@ public class RequestHandler implements HttpHandler {
             return new UpdateTaskResource().handler(taskId, requestContent);
         }
 
-        if (requestMethod.equals("DELETE") && requestUri.startsWith("/tasks/")) {
+        if (requestMethod.equals("DELETE") && requestUri.startsWith(
+                "/tasks/")) {
             Long taskId = getPathId(requestUri);
             return new RemoveTaskResource().handler(taskId);
         }
@@ -78,13 +79,5 @@ public class RequestHandler implements HttpHandler {
     private Long getPathId(String requestUri) {
         Long taskId = Long.parseLong(requestUri.substring("/tasks/".length()));
         return taskId;
-    }
-
-    private void sendResponse(HttpExchange exchange, String responseContent)
-            throws IOException {
-        byte[] bytes = responseContent.getBytes();
-
-        exchange.sendResponseHeaders(200, bytes.length);
-        exchange.getResponseBody().write(bytes);
     }
 }
