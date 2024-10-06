@@ -9,13 +9,13 @@ import com.example.demo.controller.UpdateTaskResource;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class RequestHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        String requestContent = getRequestContent(exchange);
+        String requestContent = new RequestContent(
+                exchange).getRequestContent();
 
         String requestMethod = getRequestMethod(exchange);
         String requestUri = getRequestUri(exchange);
@@ -28,11 +28,6 @@ public class RequestHandler implements HttpHandler {
         }
 
         new ResponseSuccess(exchange).send(responseContent);
-    }
-
-    private String getRequestContent(HttpExchange exchange) throws IOException {
-        InputStream inputStream = exchange.getRequestBody();
-        return new String(inputStream.readAllBytes());
     }
 
     private String getRequestMethod(HttpExchange exchange) {
