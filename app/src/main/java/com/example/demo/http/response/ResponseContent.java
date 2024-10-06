@@ -32,12 +32,16 @@ public class ResponseContent {
         RequestAttribute requestAttribute = new RequestBody().getRequestBody(
                 requestHandler);
 
-        for (RequestHandlerStrategy handler : handlers) {
-            if (handler.matches(requestAttribute)) {
-                return handler.handle(requestAttribute);
-            }
-        }
-
-        return null;
+        return handlers.stream()
+                .filter(handler -> handler.matches(requestAttribute))
+                .findFirst()
+                .map(handler -> {
+                    try {
+                        return handler.handle(requestAttribute);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .orElse(null);
     }
 }
