@@ -2,7 +2,6 @@ package com.example.demo.http.requestContent;
 
 import com.example.demo.controller.RemoveTaskResource;
 import com.example.demo.http.request.RequestAttribute;
-import java.io.IOException;
 
 public class RemoveTaskRequestHandler implements RequestHandlerStrategy {
 
@@ -15,7 +14,7 @@ public class RemoveTaskRequestHandler implements RequestHandlerStrategy {
     }
 
     @Override
-    public String handle(RequestAttribute requestAttribute) throws IOException {
+    public String handle(RequestAttribute requestAttribute) {
         Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
         return removeTaskResource.handler(taskId);
     }
