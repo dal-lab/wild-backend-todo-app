@@ -17,7 +17,7 @@ public class RequestHandler implements HttpHandler {
         String requestContent = new RequestContent(
                 exchange).getRequestContent();
 
-        String requestMethod = getRequestMethod(exchange);
+        String requestMethod = new RequestMethod(exchange).getRequestMethod();
         String requestUri = getRequestUri(exchange);
 
         String responseContent = getResponseContent(requestMethod, requestUri,
@@ -28,10 +28,6 @@ public class RequestHandler implements HttpHandler {
         }
 
         new ResponseSuccess(exchange).send(responseContent);
-    }
-
-    private String getRequestMethod(HttpExchange exchange) {
-        return exchange.getRequestMethod();
     }
 
     private String getRequestUri(HttpExchange exchange) {
