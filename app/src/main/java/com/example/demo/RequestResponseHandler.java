@@ -2,8 +2,7 @@ package com.example.demo;
 
 import com.example.demo.http.RequestHandler;
 import com.example.demo.http.ResponseContent;
-import com.example.demo.http.ResponseNotFound;
-import com.example.demo.http.ResponseSuccess;
+import com.example.demo.http.ResponseHandler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
@@ -20,10 +19,7 @@ public class RequestResponseHandler implements HttpHandler {
         String responseContent = new ResponseContent().getResponseContent(
                 requestMethod, requestURI, requestContent);
 
-        if (responseContent == null) {
-            new ResponseNotFound(exchange).send(null);
-        }
+        new ResponseHandler(exchange).send(responseContent);
 
-        new ResponseSuccess(exchange).send(responseContent);
     }
 }
