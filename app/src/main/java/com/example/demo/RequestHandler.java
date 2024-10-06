@@ -24,7 +24,7 @@ public class RequestHandler implements HttpHandler {
                 requestContent);
 
         if (responseContent == null) {
-            exchange.sendResponseHeaders(HttpStatus.NOT_FOUND.value(), -1);
+            new ResponseNotFound(exchange).send();
         }
 
         new ResponseSuccess(exchange).send(responseContent);
