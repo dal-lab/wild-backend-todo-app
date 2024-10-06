@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.http;
 
 import com.example.demo.http.request.RequestHandler;
 import com.example.demo.http.response.ResponseContent;
