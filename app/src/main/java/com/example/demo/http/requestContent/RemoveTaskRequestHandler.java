@@ -15,8 +15,8 @@ public class RemoveTaskRequestHandler implements RequestHandlerStrategy {
 
     @Override
     public String handle(RequestAttribute requestAttribute) {
-        Long taskId = new TaskPathId().getPathId(requestAttribute.requestURI(),
-                URI_PREFIX);
+        Long taskId = new TaskPathId(URI_PREFIX).getPathId(
+                requestAttribute.requestURI());
 
         return new RemoveTaskResource().handler(taskId);
     }

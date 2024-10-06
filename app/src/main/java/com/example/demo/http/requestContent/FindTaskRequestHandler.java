@@ -17,8 +17,8 @@ public class FindTaskRequestHandler implements RequestHandlerStrategy {
     @Override
     public String handle(final RequestAttribute requestAttribute)
             throws IOException {
-        Long taskId = new TaskPathId().getPathId(requestAttribute.requestURI(),
-                URI_PREFIX);
+        Long taskId = new TaskPathId(URI_PREFIX).getPathId(
+                requestAttribute.requestURI());
 
         return new FindTaskResource().handler(taskId);
     }

@@ -2,11 +2,13 @@ package com.example.demo.http.requestContent;
 
 public class TaskPathId {
 
-    public Long getPathId(String requestUri, String uriPrefix) {
-        return Long.parseLong(requestUri.substring(getPathUri(uriPrefix).length()));
+    private final String uriPrefix;
+
+    public TaskPathId(final String pathUri) {
+        this.uriPrefix = pathUri;
     }
 
-    public String getPathUri(String uriPrefix) {
-        return uriPrefix;
+    public Long getPathId(final String requestUri) {
+        return Long.parseLong(requestUri.substring(this.uriPrefix.length()));
     }
 }
