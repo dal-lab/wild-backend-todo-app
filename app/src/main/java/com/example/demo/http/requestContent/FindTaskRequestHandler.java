@@ -11,8 +11,7 @@ public class FindTaskRequestHandler implements RequestHandlerStrategy {
 
     @Override
     public boolean matches(final RequestAttribute requestAttribute) {
-        return requestAttribute.requestMethod().equals("GET")
-                && requestAttribute.requestURI().startsWith("/tasks/");
+        return isGet(requestAttribute);
     }
 
     @Override
@@ -20,5 +19,10 @@ public class FindTaskRequestHandler implements RequestHandlerStrategy {
             throws IOException {
         Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
         return findTaskResource.handler(taskId);
+    }
+
+    private boolean isGet(RequestAttribute requestAttribute) {
+        return requestAttribute.requestMethod().equals("GET")
+                && requestAttribute.requestURI().startsWith("/tasks/");
     }
 }

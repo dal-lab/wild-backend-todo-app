@@ -10,12 +10,16 @@ public class ListTaskRequestHandler implements RequestHandlerStrategy {
 
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
-        return requestAttribute.requestMethod().equals("GET")
-                && requestAttribute.requestURI().equals("/tasks");
+        return isGet(requestAttribute);
     }
 
     @Override
     public String handle(RequestAttribute requestAttribute) throws IOException {
         return listTaskResource.handler();
+    }
+
+    private boolean isGet(RequestAttribute requestAttribute) {
+        return requestAttribute.requestMethod().equals("GET")
+                && requestAttribute.requestURI().equals("/tasks");
     }
 }

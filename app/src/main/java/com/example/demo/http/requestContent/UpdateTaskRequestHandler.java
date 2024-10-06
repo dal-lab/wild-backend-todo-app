@@ -11,8 +11,7 @@ public class UpdateTaskRequestHandler implements RequestHandlerStrategy {
 
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
-        return requestAttribute.requestMethod().equals("PATCH")
-                && requestAttribute.requestURI().startsWith("/tasks/");
+        return isPatch(requestAttribute);
     }
 
     @Override
@@ -21,4 +20,10 @@ public class UpdateTaskRequestHandler implements RequestHandlerStrategy {
         return updateTaskResource.handler(taskId,
                 requestAttribute.requestContent());
     }
+
+    private boolean isPatch(RequestAttribute requestAttribute) {
+        return requestAttribute.requestMethod().equals("PATCH")
+                && requestAttribute.requestURI().startsWith("/tasks/");
+    }
 }
+

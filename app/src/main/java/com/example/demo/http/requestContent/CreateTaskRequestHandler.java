@@ -10,12 +10,16 @@ public class CreateTaskRequestHandler implements RequestHandlerStrategy {
 
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
-        return requestAttribute.requestMethod().equals("POST")
-                && requestAttribute.requestURI().equals("/tasks");
+        return isPost(requestAttribute);
     }
 
     @Override
     public String handle(RequestAttribute requestAttribute) throws IOException {
         return createTaskResource.handler(requestAttribute.requestContent());
+    }
+
+    private boolean isPost(RequestAttribute requestAttribute) {
+        return requestAttribute.requestMethod().equals("POST")
+                && requestAttribute.requestURI().equals("/tasks");
     }
 }

@@ -9,12 +9,16 @@ public class HomeRequestHandler implements RequestHandlerStrategy {
 
     @Override
     public boolean matches(RequestAttribute requestAttribute) {
-        return requestAttribute.requestMethod().equals("GET")
-                && requestAttribute.requestURI().equals("/");
+        return isGet(requestAttribute);
     }
 
     @Override
     public String handle(RequestAttribute requestAttribute) {
         return homeResource.handler();
+    }
+
+    private boolean isGet(RequestAttribute requestAttribute) {
+        return requestAttribute.requestMethod().equals("GET")
+                && requestAttribute.requestURI().equals("/");
     }
 }
