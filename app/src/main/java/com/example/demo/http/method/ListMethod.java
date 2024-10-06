@@ -2,13 +2,12 @@ package com.example.demo.http.method;
 
 import com.example.demo.http.request.RequestAttribute;
 
-public class ListMethod implements RequestMethodHandler {
+public class ListMethod extends RequestMethodHandler {
 
     private final String GET = "GET";
-    private final String uriPrefix;
 
     public ListMethod(String uriPrefix) {
-        this.uriPrefix = uriPrefix;
+        super(uriPrefix);
     }
 
     @Override

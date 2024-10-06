@@ -2,7 +2,13 @@ package com.example.demo.http.method;
 
 import com.example.demo.http.request.RequestAttribute;
 
-public interface RequestMethodHandler {
+public abstract class RequestMethodHandler {
 
-    boolean isMethod(RequestAttribute requestAttribute);
+    protected final String uriPrefix;
+
+    RequestMethodHandler(String uriPrefix) {
+        this.uriPrefix = uriPrefix;
+    }
+
+    public abstract boolean isMethod(RequestAttribute requestAttribute);
 }

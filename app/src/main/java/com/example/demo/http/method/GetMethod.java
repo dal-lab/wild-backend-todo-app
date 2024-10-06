@@ -2,13 +2,12 @@ package com.example.demo.http.method;
 
 import com.example.demo.http.request.RequestAttribute;
 
-public class GetMethod implements RequestMethodHandler {
+public class GetMethod extends RequestMethodHandler {
 
     private final String GET = "GET";
-    private final String uriPrefix;
 
     public GetMethod(String uriPrefix) {
-        this.uriPrefix = uriPrefix;
+        super(uriPrefix);
     }
 
     @Override

@@ -2,13 +2,12 @@ package com.example.demo.http.method;
 
 import com.example.demo.http.request.RequestAttribute;
 
-public class PatchMethod implements RequestMethodHandler {
+public class PatchMethod extends RequestMethodHandler {
 
     private final String PATCH = "PATCH";
-    private final String uriPrefix;
 
     public PatchMethod(String uriPrefix) {
-        this.uriPrefix = uriPrefix;
+        super(uriPrefix);
     }
 
     @Override
