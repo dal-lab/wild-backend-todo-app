@@ -30,40 +30,47 @@ public class ResponseContent {
         this.taskPathId = new TaskPathId();
     }
 
-    public String getResponseContent(RequestHandler requestHandler) throws IOException {
-        String requestContent = requestHandler.getRequestContent();
-        String requestMethod = requestHandler.getRequestMethod();
-        String requestURI = requestHandler.getRequestURI();
+    public String getResponseContent(RequestHandler requestHandler)
+            throws IOException {
+        RequestAttribute requestAttribute = new RequestBody().getRequestBody(
+                requestHandler);
 
-        if (requestMethod.equals("GET") && requestURI.equals("/")) {
+        if (requestAttribute.requestMethod().equals("GET")
+                && requestAttribute.requestURI().equals("/")) {
             return homeResource.handler();
         }
 
-        if (requestMethod.equals("POST") && requestURI.equals("/tasks")) {
-            return createTaskResource.handler(requestContent);
+        if (requestAttribute.requestMethod().equals("POST")
+                && requestAttribute.requestURI().equals("/tasks")) {
+            return createTaskResource.handler(
+                    requestAttribute.requestContent());
         }
 
-        if (requestMethod.equals("GET") && requestURI.equals("/tasks")) {
+        if (requestAttribute.requestMethod().equals("GET")
+                && requestAttribute.requestURI().equals("/tasks")) {
             return listTaskResource.handler();
         }
 
-        if (requestMethod.equals("GET") && requestURI.startsWith("/tasks/")) {
-            Long taskId = taskPathId.getPathId(requestURI);
+        if (requestAttribute.requestMethod().equals("GET")
+                && requestAttribute.requestURI().startsWith("/tasks/")) {
+            Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
             return findTaskResource.handler(taskId);
         }
 
-        if (requestMethod.equals("PATCH") && requestURI.startsWith("/tasks/")) {
-            Long taskId = taskPathId.getPathId(requestURI);
-            return updateTaskResource.handler(taskId, requestContent);
+        if (requestAttribute.requestMethod().equals("PATCH")
+                && requestAttribute.requestURI().startsWith("/tasks/")) {
+            Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
+            return updateTaskResource.handler(taskId,
+                    requestAttribute.requestContent());
         }
 
-        if (requestMethod.equals("DELETE") && requestURI.startsWith(
+        if (requestAttribute.requestMethod().equals("DELETE")
+                && requestAttribute.requestURI().startsWith(
                 "/tasks/")) {
-            Long taskId = taskPathId.getPathId(requestURI);
+            Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
             return removeTaskResource.handler(taskId);
         }
 
         return null;
     }
-
 }
