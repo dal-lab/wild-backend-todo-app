@@ -5,17 +5,17 @@ import java.io.IOException;
 
 public abstract class Response {
     private final HttpExchange exchange;
-    private final int status;
+    private final int statusCode;
 
-    Response(HttpExchange exchange, int status) {
+    Response(HttpExchange exchange, int statusCode) {
         this.exchange = exchange;
-        this.status = status;
+        this.statusCode = statusCode;
     }
 
     public void send(String responseContent) throws IOException {
         byte[] bytes = responseContent.getBytes();
 
-        exchange.sendResponseHeaders(this.status, bytes.length);
+        exchange.sendResponseHeaders(this.statusCode, bytes.length);
         exchange.getResponseBody().write(bytes);
     }
 }
