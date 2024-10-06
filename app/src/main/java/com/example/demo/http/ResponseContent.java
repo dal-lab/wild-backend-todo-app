@@ -1,33 +1,27 @@
 package com.example.demo.http;
 
-import com.example.demo.controller.CreateTaskResource;
-import com.example.demo.controller.FindTaskResource;
-import com.example.demo.controller.HomeResource;
-import com.example.demo.controller.ListTaskResource;
-import com.example.demo.controller.RemoveTaskResource;
-import com.example.demo.controller.UpdateTaskResource;
+import com.example.demo.http.content.CreateTaskRequestHandler;
+import com.example.demo.http.content.FindTaskRequestHandler;
+import com.example.demo.http.content.HomeRequestHandler;
+import com.example.demo.http.content.ListTaskRequestHandler;
+import com.example.demo.http.content.RemoveTaskRequestHandler;
+import com.example.demo.http.content.RequestHandlerStrategy;
+import com.example.demo.http.content.UpdateTaskRequestHandler;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ResponseContent {
 
-    // 멤버 변수로 핸들러 인스턴스 생성
-    private final HomeResource homeResource;
-    private final CreateTaskResource createTaskResource;
-    private final ListTaskResource listTaskResource;
-    private final FindTaskResource findTaskResource;
-    private final UpdateTaskResource updateTaskResource;
-    private final RemoveTaskResource removeTaskResource;
-    private final TaskPathId taskPathId;
+    private final List<RequestHandlerStrategy> handlers = new ArrayList<>();
 
-    // 생성자에서 인스턴스 초기화
     public ResponseContent() {
-        this.homeResource = new HomeResource();
-        this.createTaskResource = new CreateTaskResource();
-        this.listTaskResource = new ListTaskResource();
-        this.findTaskResource = new FindTaskResource();
-        this.updateTaskResource = new UpdateTaskResource();
-        this.removeTaskResource = new RemoveTaskResource();
-        this.taskPathId = new TaskPathId();
+        handlers.add(new HomeRequestHandler());
+        handlers.add(new CreateTaskRequestHandler());
+        handlers.add(new ListTaskRequestHandler());
+        handlers.add(new FindTaskRequestHandler());
+        handlers.add(new UpdateTaskRequestHandler());
+        handlers.add(new RemoveTaskRequestHandler());
     }
 
     public String getResponseContent(RequestHandler requestHandler)
@@ -35,40 +29,10 @@ public class ResponseContent {
         RequestAttribute requestAttribute = new RequestBody().getRequestBody(
                 requestHandler);
 
-        if (requestAttribute.requestMethod().equals("GET")
-                && requestAttribute.requestURI().equals("/")) {
-            return homeResource.handler();
-        }
-
-        if (requestAttribute.requestMethod().equals("POST")
-                && requestAttribute.requestURI().equals("/tasks")) {
-            return createTaskResource.handler(
-                    requestAttribute.requestContent());
-        }
-
-        if (requestAttribute.requestMethod().equals("GET")
-                && requestAttribute.requestURI().equals("/tasks")) {
-            return listTaskResource.handler();
-        }
-
-        if (requestAttribute.requestMethod().equals("GET")
-                && requestAttribute.requestURI().startsWith("/tasks/")) {
-            Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
-            return findTaskResource.handler(taskId);
-        }
-
-        if (requestAttribute.requestMethod().equals("PATCH")
-                && requestAttribute.requestURI().startsWith("/tasks/")) {
-            Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
-            return updateTaskResource.handler(taskId,
-                    requestAttribute.requestContent());
-        }
-
-        if (requestAttribute.requestMethod().equals("DELETE")
-                && requestAttribute.requestURI().startsWith(
-                "/tasks/")) {
-            Long taskId = taskPathId.getPathId(requestAttribute.requestURI());
-            return removeTaskResource.handler(taskId);
+        for (RequestHandlerStrategy handler : handlers) {
+            if (handler.matches(requestAttribute)) {
+                return handler.handle(requestAttribute);
+            }
         }
 
         return null;
