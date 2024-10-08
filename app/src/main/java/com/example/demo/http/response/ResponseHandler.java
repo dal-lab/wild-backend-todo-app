@@ -13,7 +13,7 @@ public class ResponseHandler {
 
     public void send(String responseContent) throws IOException {
         if (responseContent == null) {
-            new ResponseNotFound(this.exchange).send(null);
+            new ResponseNotFound(this.exchange).send("Resource not found");
         }
 
         new ResponseSuccess(this.exchange).send(responseContent);
