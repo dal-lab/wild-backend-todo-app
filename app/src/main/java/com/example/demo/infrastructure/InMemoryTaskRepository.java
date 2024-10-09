@@ -2,6 +2,7 @@ package com.example.demo.infrastructure;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,13 @@ public class InMemoryTaskRepository implements TaskRepository {
     @Override
     public List<Task> findAll() {
         return new ArrayList<>(tasks);
+    }
+
+    @Override
+    public Optional<Task> findById(Long id) {
+        return tasks.stream()
+            .filter(task -> task.getId() == id)
+            .findFirst();
     }
 
     private long nextId() {

@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 import com.example.demo.application.TaskFinder;
+import com.example.demo.infrastructure.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +28,18 @@ class GetTaskControllerTest {
 
     @BeforeEach
     void setUp() {
-        given(taskFinder.getTask(1L)).willReturn("success");
+        given(taskFinder.getTask(1L)).willReturn(new Task(1L, "오늘 할 일"));
     }
 
     @Test
     void shouldReturnTaskById() throws Exception {
+        String json = "{\"id\":1,\"content\":\"오늘 할 일\"}";
         mockMvc.perform(get("/tasks/1")
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
-                        containsString("success")
+                        containsString(json)
                 ));
     }
 }

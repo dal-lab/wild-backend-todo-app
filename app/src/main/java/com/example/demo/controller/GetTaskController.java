@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.application.TaskFinder;
+import com.example.demo.controller.dto.GetTaskResponseDto;
+import com.example.demo.infrastructure.Task;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +19,9 @@ public class GetTaskController {
     }
 
     @GetMapping("{id}")
-    public String getTaskHandler(@PathVariable Long id) {
-        String task = taskFinder.getTask(id);
+    public GetTaskResponseDto getTaskHandler(@PathVariable Long id) {
+        Task task = taskFinder.getTask(id);
 
-        return task;
+        return new GetTaskResponseDto(task.getId(), task.getContent());
     }
 }
