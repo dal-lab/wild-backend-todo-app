@@ -17,20 +17,24 @@ class TaskFinderTest {
     private TaskFinder taskFinder;
     private TaskRepository taskRepository;
 
-    Task mockTask = new Task(1L, "오늘 할 일");
+    private static Long existentTaskId = 1L;
+    private static Long nonExistentTaskId = 9999L;
+    private static String existentContent = "오늘 할 일";
+
+    Task mockTask = new Task(existentTaskId, existentContent);
 
     @BeforeEach
     void setUp() {
         taskRepository = mock(TaskRepository.class);
         taskFinder = new TaskFinder(taskRepository);
 
-        given(taskRepository.findById(1L)).willReturn(
+        given(taskRepository.findById(existentTaskId)).willReturn(
                 Optional.of(mockTask));
     }
 
     @Test
     void shouldReturnTask() {
-        Task task = taskFinder.getTask(1L);
+        Task task = taskFinder.getTask(existentTaskId);
 
         assertThat(task).isEqualTo(mockTask);
     }
@@ -38,9 +42,9 @@ class TaskFinderTest {
 
     @Test
     void shouldReturnEmpor() {
-        assertThatThrownBy(() -> taskFinder.getTask(999L))
+        assertThatThrownBy(() -> taskFinder.getTask(nonExistentTaskId))
                 .isInstanceOf(TaskIdNotFoundException.class)
-                .hasMessage("Task 999를 찾을 수 없습니다.");
+                .hasMessage("Task 9999를 찾을 수 없습니다.");
 
     }
 }

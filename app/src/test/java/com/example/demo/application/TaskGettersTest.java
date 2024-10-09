@@ -18,6 +18,11 @@ class TaskGettersTest {
     private TaskGetters taskGetters;
     private TaskRepository taskRepository;
 
+    private static Long firstTaskId = 1L;
+    private static Long secondTaskID = 2L;
+    private static String firstContent = "오늘 할 일";
+    private static String secondContent = "오늘 할 일";
+
     @BeforeEach
     void setUp() {
         taskRepository = mock(TaskRepository.class);
@@ -27,8 +32,8 @@ class TaskGettersTest {
     @Test
     void shouldReturnTasks() {
         List<Task> mockTasks = Arrays.asList(
-                new Task(1L, "오늘 할 일"),
-                new Task(2L, "내일 할 일")
+                new Task(firstTaskId, firstContent),
+                new Task(secondTaskID, secondContent)
         );
 
         given(taskRepository.findAll()).willReturn(mockTasks);

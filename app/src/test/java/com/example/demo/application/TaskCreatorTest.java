@@ -14,6 +14,7 @@ class TaskCreatorTest {
     private TaskCreator taskCreator;
     private TaskRepository taskRepository;
 
+    private static String existentContent = "오늘 할 일";
 
     @BeforeEach
     void setUp() {
@@ -23,8 +24,7 @@ class TaskCreatorTest {
 
     @Test
     void save() {
-        String content = "오늘 할 일";
-        taskCreator.createTask(content);
+        taskCreator.createTask(existentContent);
 
         verify(taskRepository).save(any());
     }
