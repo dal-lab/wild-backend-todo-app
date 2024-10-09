@@ -18,8 +18,8 @@ public class GetTaskController {
         this.taskFinder = taskFinder;
     }
 
-    @GetMapping("{id}")
-    public GetTaskResponseDto getTaskHandler(@PathVariable Long id) {
+    @GetMapping("{taskId}")
+    public GetTaskResponseDto getTaskHandler(@PathVariable("taskId") Long id) {
         Task task = taskFinder.getTask(id);
 
         return new GetTaskResponseDto(task.getId(), task.getContent());

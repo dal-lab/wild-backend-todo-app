@@ -16,4 +16,10 @@ public class GlobalControllerExceptionHandler {
         return new ErrorResponse("해당 Task 정보를 찾을 수 없습니다");
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(TaskIdNotFoundException.class)
+    public ErrorResponse handleTaskIdNotFound() {
+        return new ErrorResponse("해당 Task Id를 찾을 수 없습니다.");
+    }
+
 }
