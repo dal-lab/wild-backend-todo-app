@@ -24,15 +24,18 @@ class RemoveTaskControllerTest {
     @MockBean
     private TaskRemover taskRemover;
 
+    private static final Long EXISTING_TASK_ID = 1L;
+    private static final Long NON_EXISTING_TASK_ID = 9999L;
+
     @BeforeEach
     void setUp() {
-        given(taskRemover.removeTask(1L)).willReturn(true);
-        given(taskRemover.removeTask(9999L)).willReturn(false);
+        given(taskRemover.removeTask(EXISTING_TASK_ID)).willReturn(true);
+        given(taskRemover.removeTask(NON_EXISTING_TASK_ID)).willReturn(false);
     }
 
     @Test
     void shouldReturnSuccessWhenTaskDeleted() throws Exception {
-        mockMvc.perform(delete("/tasks/1")
+        mockMvc.perform(delete("/tasks/" + EXISTING_TASK_ID)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
@@ -41,7 +44,7 @@ class RemoveTaskControllerTest {
 
     @Test
     void shouldReturnFailWhenTaskNotDeleted() throws Exception {
-        mockMvc.perform(delete("/tasks/9999")
+        mockMvc.perform(delete("/tasks/" + NON_EXISTING_TASK_ID)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
