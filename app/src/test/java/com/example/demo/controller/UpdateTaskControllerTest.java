@@ -28,7 +28,7 @@ class UpdateTaskControllerTest {
     void shouldReturnUpdatedTask() throws Exception {
         String requestData = "{\"content\":\"내일 할 일\"}";
 
-        String json = "{\"content\":\"내일 할 일\"}";
+        String json = "{\"id\":1,\"content\":\"내일 할 일\"}";
 
         given(taskUpdater.updateTask(1L, "내일 할 일")).willReturn(
                 new Task(1L, "내일 할 일"));

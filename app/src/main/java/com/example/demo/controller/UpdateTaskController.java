@@ -31,6 +31,6 @@ public class UpdateTaskController {
 
         Task task = taskUpdater.updateTask(taskId, content);
 
-        return new UpdateTaskResponseDto(task.getContent());
+        return new UpdateTaskResponseDto(task.getId(), task.getContent());
     }
 }
