@@ -1,6 +1,6 @@
 package com.example.demo.application;
 
-import com.example.demo.exception.TaskNotFoundException;
+import com.example.demo.exception.TaskIdNotFoundException;
 import com.example.demo.infrastructure.Task;
 import com.example.demo.infrastructure.TaskRepository;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class TaskRemover {
 
     public boolean removeTask(Long taskId) {
         Task task = taskRepository.findById(taskId)
-            .orElseThrow(() -> new TaskNotFoundException("해당 Task를 찾을 수 없습니다."));
+            .orElseThrow(() -> new TaskIdNotFoundException(taskId));
 
         return taskRepository.remove(task.getId()) ? true : false;
     }

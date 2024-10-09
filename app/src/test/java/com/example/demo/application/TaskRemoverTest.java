@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
+import com.example.demo.exception.TaskIdNotFoundException;
 import com.example.demo.exception.TaskNotFoundException;
 import com.example.demo.infrastructure.Task;
 import com.example.demo.infrastructure.TaskRepository;
@@ -41,7 +42,7 @@ class TaskRemoverTest {
     @Test
     void shouldReturnFalseIfRemoveFail() {
         assertThatThrownBy(() -> taskRemover.removeTask(9999L))
-                .isInstanceOf(TaskNotFoundException.class)
-                .hasMessage("해당 Task를 찾을 수 없습니다.");
+                .isInstanceOf(TaskIdNotFoundException.class)
+                .hasMessage("Task 9999를 찾을 수 없습니다.");
     }
 }
