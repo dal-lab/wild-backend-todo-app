@@ -4,21 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TaskRepositoryImp implements TaskRepository {
 
     List<Task> tasks = new ArrayList<>();
 
-    private static TaskRepositoryImp instance = null;
-
     private final AtomicLong atomicLong = new AtomicLong(1);
-
-    public static TaskRepositoryImp getInstance() {
-        if (instance == null) {
-            instance = new TaskRepositoryImp();
-        }
-        return instance;
-    }
 
     private long nextId() {
         return atomicLong.getAndIncrement();

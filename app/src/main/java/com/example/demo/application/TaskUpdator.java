@@ -3,11 +3,16 @@ package com.example.demo.application;
 import com.example.demo.exception.TaskNotFoundException;
 import com.example.demo.infrastructure.Task;
 import com.example.demo.infrastructure.TaskRepository;
-import com.example.demo.infrastructure.TaskRepositoryImp;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TaskUpdator {
 
-    private final TaskRepository taskRepository = TaskRepositoryImp.getInstance();
+    public TaskUpdator(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
+
+    private final TaskRepository taskRepository;
 
     public Task updateTask(long id, String content) {
         Task task = taskRepository.findById(id)
