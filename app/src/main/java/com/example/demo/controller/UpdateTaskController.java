@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.controller.dto.UpdateTaskRequestDto;
+import com.example.demo.controller.dto.UpdateTaskResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/tasks")
 public class UpdateTaskController {
 
-    @PatchMapping("{id}")
+    @PatchMapping("{taskId}")
     @ResponseStatus(HttpStatus.OK)
-    public String updateTaskHandler(@PathVariable("id") Long id,
+    public UpdateTaskResponseDto updateTaskHandler(
+            @PathVariable("taskId") Long taskId,
             UpdateTaskRequestDto updateTaskRequestDto) {
-        return "success";
+        return new UpdateTaskResponseDto("success");
     }
 }

@@ -19,8 +19,14 @@ class UpdateTaskControllerTest {
 
     @Test
     void shouldReturnUpdatedTask() throws Exception {
+        String requestData = "{\n"
+                + "  \"id\": 1,\n"
+                + "  \"contents\": \"내일 할 일\"\n"
+                + "}";
+
         mockMvc.perform(patch("/tasks/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestData)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
