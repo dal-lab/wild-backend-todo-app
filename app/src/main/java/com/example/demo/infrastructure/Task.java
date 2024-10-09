@@ -22,4 +22,12 @@ public class Task {
     public static Task createTask(String content) {
         return new Task(content);
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getContent() {
+        return content;
+    }
 }

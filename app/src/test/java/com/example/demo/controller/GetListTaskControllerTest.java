@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(GetListTaskController.class)
@@ -18,9 +19,14 @@ class GetListTaskControllerTest {
 
     @Test
     void shouldReturnTaskList() throws Exception {
-        mockMvc.perform(get("/tasks"))
+        String json = "{\"tasks\":[{\"id\":1,\"content\":\"오늘 할 일\"}]}";
+
+        mockMvc.perform(get("/tasks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content()
-                        .string(containsString("success")));
+                        .string(containsString(json)));
     }
 }
