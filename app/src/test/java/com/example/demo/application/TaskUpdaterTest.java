@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 import com.example.demo.exception.TaskNotFoundException;
 import com.example.demo.infrastructure.Task;
@@ -18,28 +17,31 @@ class TaskUpdaterTest {
     private TaskUpdater taskUpdater;
     private TaskRepository taskRepository;
 
+    private static Long existentTaskId = 1L;
+    private static Long nonExistentTaskId = 9999L;
+    private static String existentContent = "오늘 할 일";
+
     @BeforeEach
     void setUp() {
         taskRepository = mock(TaskRepository.class);
         taskUpdater = new TaskUpdater(taskRepository);
 
-        Task mockTask = new Task(1L, "오늘 할 일");
+        Task mockTask = new Task(existentTaskId, existentContent);
         given(taskRepository.findById(1L)).willReturn(
                 Optional.of(mockTask));
     }
 
     @Test
     void ShouldReturnUpdateTask() {
-        Task task = taskUpdater.updateTask(1L, "내일 할 일");
+        Task task = taskUpdater.updateTask(existentTaskId, existentContent);
 
-        assertThat(task.getContent()).isEqualTo("내일 할 일");
+        assertThat(task.getContent()).isEqualTo(existentContent);
     }
 
     @Test
     void shouldThrowExceptionWhenTaskNotFound() {
-        given(taskRepository.findById(2L)).willReturn(Optional.empty());
-
-        assertThatThrownBy(() -> taskUpdater.updateTask(999L, "오늘 할 일"))
+        assertThatThrownBy(() -> taskUpdater.updateTask(nonExistentTaskId,
+                existentContent))
                 .isInstanceOf(TaskNotFoundException.class)
                 .hasMessage("해당 Task를 찾을 수 없습니다.");
     }
