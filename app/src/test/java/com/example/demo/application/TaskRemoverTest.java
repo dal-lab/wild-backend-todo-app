@@ -20,6 +20,7 @@ class TaskRemoverTest {
 
     private static Long existentTaskId = 1L;
     private static Long nonExistentTaskId = 9999L;
+    private static String existentContent = "오늘 할 일";
 
     @BeforeEach
     void setUp() {
@@ -27,7 +28,7 @@ class TaskRemoverTest {
         taskRemover = new TaskRemover(taskRepository);
 
         given(taskRepository.findById(existentTaskId)).willReturn(
-                Optional.of(new Task(existentTaskId, "오늘 할 일")));
+                Optional.of(new Task(existentTaskId, existentContent)));
 
         given(taskRepository.findById(nonExistentTaskId)).willReturn(
                 Optional.empty());
