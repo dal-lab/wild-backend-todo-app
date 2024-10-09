@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TaskCreator {
 
-    public void createTask() {
+    public void createTask(String content) {
 
     }
 }

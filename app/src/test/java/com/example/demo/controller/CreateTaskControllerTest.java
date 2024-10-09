@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.demo.application.TaskCreator;
+import com.example.demo.controller.dto.CreateTaskRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,10 +24,17 @@ class CreateTaskControllerTest {
 
     @Test
     void shouldReturnNoContent() throws Exception {
+        String mockJson = "{\n"
+                + "    \"content\": \"오늘 할 일\"\n"
+                + "}";
+
         mockMvc.perform(post("/tasks")
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mockJson)
+                )
                 .andExpect(status().isCreated());
 
-        verify(taskCreator).createTask();
+        String mockContent = "오늘 할 일";
+        verify(taskCreator).createTask(mockContent);
     }
 }
