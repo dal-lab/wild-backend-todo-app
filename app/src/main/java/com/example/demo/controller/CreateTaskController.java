@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.application.TaskCreator;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/tasks")
 public class CreateTaskController {
 
+    private TaskCreator taskCreator;
+
+    public CreateTaskController(TaskCreator taskCreator) {
+        this.taskCreator = taskCreator;
+    }
+
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void createTaskHandler() {
+        this.taskCreator.createTask();
     }
 }
