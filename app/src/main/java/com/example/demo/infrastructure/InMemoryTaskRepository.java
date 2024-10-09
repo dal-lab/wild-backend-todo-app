@@ -31,6 +31,11 @@ public class InMemoryTaskRepository implements TaskRepository {
             .findFirst();
     }
 
+    @Override
+    public boolean remove(Long id) {
+        return tasks.removeIf(task -> task.getId() == id);
+    }
+
     private long nextId() {
         return atomicLong.getAndIncrement();
     }
