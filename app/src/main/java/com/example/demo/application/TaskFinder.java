@@ -8,14 +8,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class TaskFinder {
 
+    private final TaskRepository taskRepository;
+
     public TaskFinder(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
-    private final TaskRepository taskRepository;
-
     public Task getTask(Long id) {
         return taskRepository.findById(id)
-                .orElseThrow(() -> new TaskNotFoundException("해당 task를 찾을 수 없습니다."));
+                .orElseThrow(
+                        () -> new TaskNotFoundException("해당 task를 찾을 수 없습니다."));
     }
 }
