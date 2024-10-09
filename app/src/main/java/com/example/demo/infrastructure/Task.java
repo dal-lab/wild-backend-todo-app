@@ -15,6 +15,10 @@ public class Task {
         this.content = content;
     }
 
+    public void updateTask(String content) {
+        this.content = content;
+    }
+
     public void assignId(final long nextId) {
         this.id = nextId;
     }
