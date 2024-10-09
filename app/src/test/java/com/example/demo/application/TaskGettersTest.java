@@ -8,6 +8,7 @@ import static org.mockito.Mockito.mock;
 import com.example.demo.exception.TaskNotFoundException;
 import com.example.demo.infrastructure.Task;
 import com.example.demo.infrastructure.TaskRepository;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,8 +18,6 @@ class TaskGettersTest {
     private TaskGetters taskGetters;
     private TaskRepository taskRepository;
 
-    Task mockTask = new Task(1L, "오늘 할 일");
-
     @BeforeEach
     void setUp() {
         taskRepository = mock(TaskRepository.class);
@@ -27,12 +26,17 @@ class TaskGettersTest {
 
     @Test
     void shouldReturnTasks() {
-        given(taskRepository.findAll()).willReturn(
-                List.of(mockTask));
+        List<Task> mockTasks = Arrays.asList(
+                new Task(1L, "오늘 할 일"),
+                new Task(2L, "내일 할 일")
+        );
+
+        given(taskRepository.findAll()).willReturn(mockTasks);
 
         List<Task> tasks = taskGetters.getListTask();
 
-        assertThat(tasks).isEqualTo(List.of(mockTask));
+        assertThat(tasks).hasSize(2);
+        assertThat(tasks).isEqualTo(mockTasks);
     }
 
     @Test
