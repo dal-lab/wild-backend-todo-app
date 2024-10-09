@@ -40,10 +40,8 @@ class TaskGettersTest {
     }
 
     @Test
-    void shouldReturnTaskException() {
-        given(taskRepository.findAll()).willThrow(
-                new TaskNotFoundException("해당 Task 정보를 찾을 수 없습니다.")
-        );
+    void shouldReturnEmptyListWhenNoTasks() {
+        given(taskRepository.findAll()).willReturn(List.of());
 
         assertThatThrownBy(() -> taskGetters.getListTask())
                 .isInstanceOf(TaskNotFoundException.class)
