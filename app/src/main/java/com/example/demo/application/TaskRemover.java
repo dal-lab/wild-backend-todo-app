@@ -1,11 +1,16 @@
 package com.example.demo.application;
 
 import com.example.demo.infrastructure.TaskRepository;
-import com.example.demo.infrastructure.TaskRepositoryImp;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TaskRemover {
 
-    private final TaskRepository taskRepository = TaskRepositoryImp.getInstance();
+    public TaskRemover(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
+
+    private final TaskRepository taskRepository;
 
     public boolean removeTask(Long id) {
         return taskRepository.remove(id);

@@ -4,7 +4,6 @@ import com.example.demo.application.TaskCreator;
 import com.example.demo.controller.dto.CreateTaskRequestDto;
 import com.example.demo.controller.dto.CreateTaskResponseDto;
 import com.example.demo.infrastructure.Task;
-import java.io.IOException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/tasks")
 public class CreateTaskController {
 
-    private final TaskCreator taskCreator = new TaskCreator();
+    private final TaskCreator taskCreator;
+
+    public CreateTaskController(TaskCreator taskCreator) {
+        this.taskCreator = taskCreator;
+    }
 
     @PostMapping
     public CreateTaskResponseDto handler(

@@ -8,7 +8,12 @@ import java.io.IOException;
 
 public class FindTaskResource {
 
-    private final TaskFinder taskFinder = new TaskFinder();
+    private final TaskFinder taskFinder;
+
+    public FindTaskResource(TaskFinder taskFinder) {
+        this.taskFinder = taskFinder;
+    }
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public String handler(Long id) throws IOException {
