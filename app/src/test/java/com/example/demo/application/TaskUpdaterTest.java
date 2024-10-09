@@ -33,8 +33,6 @@ class TaskUpdaterTest {
         Task task = taskUpdater.updateTask(1L, "내일 할 일");
 
         assertThat(task.getContent()).isEqualTo("내일 할 일");
-
-        verify(taskRepository).save(task);
     }
 
     @Test

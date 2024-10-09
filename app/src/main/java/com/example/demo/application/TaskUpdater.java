@@ -21,8 +21,6 @@ public class TaskUpdater {
 
         task.updateTask(content);
 
-        taskRepository.save(task);
-
         return task;
     }
 }
