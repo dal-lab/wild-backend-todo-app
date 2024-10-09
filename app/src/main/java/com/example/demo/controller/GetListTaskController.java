@@ -12,10 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/tasks")
 public class GetListTaskController {
 
-    private TaskGetters taskGetters;
+    private final TaskGetters taskGetters;
+
+    public GetListTaskController(TaskGetters taskGetters) {
+        this.taskGetters = taskGetters;
+    }
 
     @GetMapping
     public GetListTaskResponseDto getListTaskHandler() {
-        return GetListTaskResponseDto.of(List.of(new Task(1L, "오늘 할 일")));
+        List<Task> tasks = this.taskGetters.getListTask();
+
+        return GetListTaskResponseDto.of(tasks);
     }
 }
