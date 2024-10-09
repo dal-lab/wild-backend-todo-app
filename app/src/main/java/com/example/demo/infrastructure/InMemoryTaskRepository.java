@@ -18,6 +18,11 @@ public class InMemoryTaskRepository implements TaskRepository {
         tasks.add(task);
     }
 
+    @Override
+    public List<Task> findAll() {
+        return new ArrayList<>(tasks);
+    }
+
     private long nextId() {
         return atomicLong.getAndIncrement();
     }
