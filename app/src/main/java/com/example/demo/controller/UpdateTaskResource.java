@@ -9,7 +9,11 @@ import java.io.IOException;
 
 public class UpdateTaskResource {
 
-    private final TaskUpdator taskUpdator = new TaskUpdator();
+    public UpdateTaskResource(TaskUpdator taskUpdator) {
+        this.taskUpdator = taskUpdator;
+    }
+
+    private final TaskUpdator taskUpdator;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public String handler(long id, String content) throws IOException {

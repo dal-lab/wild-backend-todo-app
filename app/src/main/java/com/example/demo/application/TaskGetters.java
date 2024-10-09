@@ -2,12 +2,17 @@ package com.example.demo.application;
 
 import com.example.demo.infrastructure.Task;
 import com.example.demo.infrastructure.TaskRepository;
-import com.example.demo.infrastructure.TaskRepositoryImp;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TaskGetters {
 
-    private final TaskRepository taskRepository = TaskRepositoryImp.getInstance();
+    public TaskGetters(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
+
+    private final TaskRepository taskRepository;
 
     public List<Task> getTaskList() {
         return taskRepository.findAll();
