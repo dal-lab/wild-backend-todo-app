@@ -4,9 +4,9 @@ import com.example.demo.exception.TaskNotFoundException;
 import com.example.demo.infrastructure.Task;
 import com.example.demo.infrastructure.TaskRepository;
 import java.util.List;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class TaskGetters {
 
     private final TaskRepository taskRepository;
