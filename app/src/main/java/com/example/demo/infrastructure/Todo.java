@@ -5,6 +5,12 @@ public class Todo {
     private String title;
     private boolean isCompleted;
 
+    public Todo() {
+        this.id = 0;
+        this.title = "";
+        this.isCompleted = false;
+    }
+
     public Todo(int id, String title) {
         this.id = id;
         this.title = title;
@@ -19,7 +25,7 @@ public class Todo {
         return title;
     }
 
-    public boolean getIsCompleted() {
+    public Boolean getIsCompleted() {
         return isCompleted;
     }
 
