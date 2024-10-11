@@ -9,6 +9,9 @@ repositories {
 }
 
 dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web:3.3.4")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.4")
+
     testImplementation("io.rest-assured:rest-assured:4.4.0")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
