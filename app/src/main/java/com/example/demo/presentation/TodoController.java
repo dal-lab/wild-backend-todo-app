@@ -24,7 +24,7 @@ public class TodoController {
 
 
     @GetMapping
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public List<Todo> list() {
         return todoRepository;
     }
