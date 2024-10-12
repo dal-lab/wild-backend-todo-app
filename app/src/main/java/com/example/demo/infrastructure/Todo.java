@@ -25,7 +25,7 @@ public class Todo {
         return title;
     }
 
-    public Boolean getIsCompleted() {
+    public boolean getIsCompleted() {
         return isCompleted;
     }
 
@@ -34,7 +34,7 @@ public class Todo {
 
     }
 
-    public void setCompleted(Boolean aBoolean) {
+    public void setCompleted(boolean aBoolean) {
         this.isCompleted = aBoolean;
     }
 }
