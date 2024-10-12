@@ -84,10 +84,14 @@ components:
             properties:
                 id:
                     type: integer
+                    description: 할 일 항목의 고유 식별자
                 title:
                     type: string
+                    description: 할 일 항목의 제목
                 isCompleted:
                     type: boolean
+                    description: 할 일 항목의 완료 여부
+
             required:
                 - id
                 - title
@@ -98,6 +102,7 @@ components:
             properties:
                 title:
                     type: string
+                    description: 새로운 할 일 항목의 제목
             required:
                 - title
         TodoUpdate:
@@ -105,7 +110,8 @@ components:
             properties:
                 title:
                     type: string
+                    description: 업데이트할 할 일 항목의 제목
                 isCompleted:
                     type: boolean
-            required:
-                - title
+                    description: 업데이트할 할 일 항목의 완료 여부
+
