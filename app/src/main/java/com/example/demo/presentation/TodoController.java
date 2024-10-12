@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/todos")
@@ -45,10 +46,10 @@ public class TodoController {
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Todo not found: " + id));
 
-        if (requestedTodo.getTitle() != "" && requestedTodo.getTitle() != null) {
+        if (!requestedTodo.getTitle().isEmpty() && Objects.nonNull(requestedTodo.getTitle())) {
             editedTodo.setTitle(requestedTodo.getTitle());
         }
-        if (requestedTodo.getIsCompleted() != null) {
+        if (Objects.nonNull(requestedTodo.getIsCompleted())) {
             editedTodo.setCompleted(requestedTodo.getIsCompleted());
         }
 
