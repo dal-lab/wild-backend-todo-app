@@ -20,7 +20,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/todos")
 public class TodoController {
-    List<Todo> todoRepository = new ArrayList<>();
+    private List<Todo> todoRepository = new ArrayList<>();
 
 
     @GetMapping
